@@ -37,7 +37,7 @@ class Login extends CMVCController {
 		$userarr = json_decode(LOGIN_USERS, true);
 		if ((isset($userarr[$this->user])) && ($userarr[$this->user] == md5($this->pass))) {
 			Session::get_instance()->set_property("user", $this->user);
-			$this->redirect = "mailinglist";
+			$this->redirect = "rendercontroller";
 			return;
 		} else {
 			$this->view->set_value("error", "Zugangsdaten sind nicht gültig!");

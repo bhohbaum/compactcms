@@ -35,7 +35,7 @@ class View {
 		$this->comp[$comp_name] = false;
 	}
 
-	public function is_active($comp_name) {
+	private function is_active($comp_name) {
 		if (isset($this->comp[$comp_name])) {
 			return $this->comp[$comp_name];
 		} else {
@@ -47,7 +47,7 @@ class View {
 		$this->vals[$key] = $value;
 	}
 
-	public function get_value($key) {
+	private function get_value($key) {
 		if (isset($this->vals[$key])) {
 			return $this->vals[$key];
 		} else {

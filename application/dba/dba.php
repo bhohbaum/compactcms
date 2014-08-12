@@ -360,6 +360,41 @@ class DBA extends DbAccess {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//======================================================================================================================================================
+	
+	public function get_element_by_id($id, $obj = false) {
+		$q = "SELECT	*
+				FROM	elements
+				WHERE	id = ".$this->mysqli->real_escape_string($id);
+		return $this->run_query($q, false, $obj);
+	}
+	
+	public function get_element_type_by_id($id, $obj = false) {
+		$q = "SELECT	*
+				FROM	element_types
+				WHERE	id = ".$this->mysqli->real_escape_string($id);
+		return $this->run_query($q, false, $obj);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
 ?>

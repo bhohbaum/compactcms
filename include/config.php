@@ -19,7 +19,7 @@ LIBCOMPACTMVC_ENTRY;
 define("MYSQL_HOST", "localhost");
 
 // default DB
-define("MYSQL_DB", "libcompactmvc");
+define("MYSQL_DB", "compactcms");
 
 // DB user
 define("MYSQL_USER", "botho");

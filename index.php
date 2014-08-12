@@ -20,16 +20,12 @@ class Main {
 	
 	public function app() {
 		$this->ad = new ActionDispatcher("action");
-		$this->ad->set_handler("", 				"Login");
-		$this->ad->set_handler("control", 		"Control");
-		$this->ad->set_handler("login", 		"Login");
-		$this->ad->set_handler("logout", 		"Logout");
-		$this->ad->set_handler("mail", 			"Mail");
-		$this->ad->set_handler("mailingedit", 	"MailingEdit");
-		$this->ad->set_handler("mailinglist", 	"MailingList");
-		$this->ad->set_handler("trackingstats", "TrackingStats");
-		$this->ad->set_handler("uploads", 		"Uploads");
-		$this->ad->set_default("login");
+		$this->ad->set_handler("", 					"Login");
+		$this->ad->set_handler("control",			"Control");
+		$this->ad->set_handler("login",				"Login");
+		$this->ad->set_handler("logout", 			"Logout");
+		$this->ad->set_handler("rendercontroller", 	"RenderController");
+		$this->ad->set_default("rendercontroller");
 		$this->ad->set_control("control");
 		$this->ad->run();
 		echo($this->ad->get_ob());
@@ -48,6 +44,10 @@ try {
 	$run = new Main();
 	$run->app();
 } catch (Exception $e) {
-	echo("<pre>".$e->getTraceAsString()."</pre>");
+	echo("<pre>");
+	echo("Uncaught exception in web application:"."\n"."\n");
+	echo($e->getMessage()."\n"."\n");
+	echo($e->getTraceAsString()."\n");
+	echo("</pre>");
 }
 
