@@ -89,6 +89,7 @@ abstract class CMVCController {
 	}
 
 	public function __construct() {
+// 		$this->view = View::instance();
 		$this->view = new View();
 		$this->log = new Log(Log::LOG_TYPE_FILE);
 		$this->log->set_log_file(LOG_FILE);

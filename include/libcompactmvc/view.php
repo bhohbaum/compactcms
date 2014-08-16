@@ -16,16 +16,32 @@ LIBCOMPACTMVC_ENTRY;
  * @link https://github.com/bhohbaum/libcompactmvc
  */
 class View {
+	private static $instance;
 	private $comp;
 	private $vals;
 	private $tpls;
 	private $redis;
 	public $log;
-	
+
 	public function __construct() {
 		$this->redis = new Redis();
 		$this->redis->connect(REDIS_HOST, REDIS_PORT);
 	}
+
+// 	private function __clone() {
+// 	}
+
+// 	public static function instance() {
+// 		$name = get_called_class();
+// 		var_dump($name);
+// 		if (!isset(self::$instance)) {
+// 			self::$instance = array();
+// 		}
+// 		if (!array_key_exists($name, self::$instance)) {
+// 			self::$instance[$name] = new $name();
+// 		}
+// 		return self::$instance[$name];
+// 	}
 
 	public function activate($comp_name) {
 		$this->comp[$comp_name] = true;
@@ -47,7 +63,7 @@ class View {
 		$this->vals[$key] = $value;
 	}
 
-	private function get_value($key) {
+	public function get_value($key) {
 		if (isset($this->vals[$key])) {
 			return $this->vals[$key];
 		} else {
@@ -79,13 +95,13 @@ class View {
 		$out = $this->redis->get($key);
 		if ($out != null) {
 			$this->redis->expire($key, REDIS_KEY_RCACHE_TTL);
-			$time_taken = (microtime(true) - $start) * 1000 ." ms";
-			$msg = 'Returning content from render cache... (' . $key . ' | '.$time_taken.')';
+			$time_taken = (microtime(true) - $start) * 1000 . " ms";
+			$msg = 'Returning content from render cache... (' . $key . ' | ' . $time_taken . ')';
 			DLOG($msg);
 			return $out;
 		}
-		$time_taken = (microtime(true) - $start) * 1000 ." ms";
-		$msg = 'Starting Rendering... (' . $key . ' | '.$time_taken.')';
+		$time_taken = (microtime(true) - $start) * 1000 . " ms";
+		$msg = 'Starting Rendering... (' . $key . ' | ' . $time_taken . ')';
 		DLOG($msg);
 		$out = "";
 		if (DEBUG == 0) {
@@ -108,8 +124,8 @@ class View {
 		}
 		$this->redis->set($key, $out);
 		$this->redis->expire($key, REDIS_KEY_RCACHE_TTL);
-		$time_taken = (microtime(true) - $start) * 1000 ." ms";
-		$msg = 'Returning rendered content... (' . $key . ' | '.$time_taken.')';
+		$time_taken = (microtime(true) - $start) * 1000 . " ms";
+		$msg = 'Returning rendered content... (' . $key . ' | ' . $time_taken . ')';
 		DLOG($msg);
 		return $out;
 	}
@@ -122,7 +138,7 @@ class View {
 		} else if (file_exists($file2)) {
 			include ($file2);
 		} else {
-			throw new Exception("Could not find template file: " . $file);
+			throw new Exception("Could not find template file: " . $tpl_name);
 		}
 	}
 

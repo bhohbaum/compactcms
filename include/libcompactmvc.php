@@ -27,6 +27,7 @@ function cmvc_include($fname) {
 	$dirs_down = array(
 					"application/dba/",
 					"application/controller/",
+					"application/view/",
 					"include/",
 					"include/libcompactmvc/"
 				);
@@ -93,6 +94,7 @@ cmvc_include('dba.php');
 cmvc_include('cmsdba.php');
 
 // pages
+cmvc_include('cmsview.php');
 cmvc_include('control.php');
 cmvc_include('login.php');
 cmvc_include('logout.php');

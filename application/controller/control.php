@@ -42,7 +42,7 @@ class Control extends CMVCController {
 			return;
 		}
 		if (!isset($this->user)) {
-			$this->redirect = "logout";
+// 			$this->redirect = "logout";
 		}
 	}
 	

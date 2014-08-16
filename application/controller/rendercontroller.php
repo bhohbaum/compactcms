@@ -13,6 +13,7 @@ LIBCOMPACTMVC_ENTRY;
 class RenderController extends CMVCController {
 	
 	private $id;
+	private $cmsview;
 	private $element;
 	private $element_type;
 	private $element_data;
@@ -24,19 +25,18 @@ class RenderController extends CMVCController {
 	protected function retrieve_data() {
 		DLOG(__METHOD__);
 		$this->id = $this->request("id");
-		
+		$this->cmsview = new CMSView();
 	}
 	
 	protected function run_page_logic() {
 		DLOG(__METHOD__);
-		var_dump($this->id);
 		$this->element = $this->db->get_element_by_id($this->id);
-		var_dump($this->element);
 		$this->element_type = $this->db->get_element_type_by_id($this->element["fk_id_element_types"]);
 		$this->element_data = $this->db->get_element_data_by_element_id($this->id);
-		$this->view->set_value("element_data", $this->element_data);
-		$this->view->add_template("layouts/".$this->element_type["template"]);
-		
+		$this->cmsview->set_id($this->id);
+		$this->cmsview->set_value("element_data", $this->element_data);
+		$this->cmsview->add_template("cms/layouts/".$this->element_type["template"]);
+		$this->binary_response($this->cmsview->render());
 	}
 	
 }
