@@ -58,7 +58,7 @@
 	<body>
 		<div class="spinner"></div>
 		<!--============================== menu =================================-->
-		<?= $this->subpart(1) ?>
+		<?= $this->subpart(0) ?>
 		<div class="bg-content">
 			<div class="container">
 				<div class="row">

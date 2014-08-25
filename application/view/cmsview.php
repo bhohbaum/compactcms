@@ -19,6 +19,7 @@ class CMSView extends View {
 	private $db;
 	private $data;
 	private $id;
+	private $element_data;
 	
 	public function __construct() {
 		parent::__construct();
@@ -34,13 +35,15 @@ class CMSView extends View {
 		foreach ($children as $child) {
 			$subview = new CMSView();
 			$subview->set_id($child->id_elements);
-			$subview->set_value("element", $this->db->get_element_by_id($child->id_elements, true));
-			$subview->set_value("element_type", $this->db->get_element_type_by_id($subview->get_value("element")->fk_id_element_types, true));
-			$subview->set_value("element_data", $this->db->get_element_data_by_element_id($child->id_elements, true));
-			$subview->add_template("cms/parts/".$subview->get_value("element_type")->template);
+			$subview->add_template("cms/parts/".$this->db->get_element_type_by_id($this->db->get_element_by_id($child->id_elements, true)->fk_id_element_types, true)->template);
 			$out .= $subview->render();
 		}
 		return $out;
+	}
+	
+	public function get_data($tname) {
+		$data = $this->db->get_element_data_by_element_id_and_type_name($this->id, $tname, true);
+		return $data->data;
 	}
 	
 	public function set_id($id) {

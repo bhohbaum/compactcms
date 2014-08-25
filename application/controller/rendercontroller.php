@@ -30,13 +30,8 @@ class RenderController extends CMVCController {
 	
 	protected function run_page_logic() {
 		DLOG(__METHOD__);
-		$this->element = $this->db->get_element_by_id($this->id);
-		$this->element_type = $this->db->get_element_type_by_id($this->element["fk_id_element_types"]);
-		$this->element_data = $this->db->get_element_data_by_element_id($this->id);
 		$this->cmsview->set_id($this->id);
-		$this->cmsview->set_value("element_type", $this->element_type);
-		$this->cmsview->set_value("element_data", $this->element_data);
-		$this->cmsview->add_template("cms/layouts/".$this->element_type["template"]);
+		$this->cmsview->add_template("cms/layouts/".$this->db->get_element_type_by_id($this->db->get_element_by_id($this->id, true)->fk_id_element_types, true)->template);
 		$this->binary_response($this->cmsview->render());
 	}
 	
