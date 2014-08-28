@@ -25,6 +25,7 @@ function cmvc_include($fname) {
 	// Put all directories into this array, where source files shall be included.
 	// This function is intended to work from everywhere.
 	$dirs_down = array(
+					"application/",
 					"application/dba/",
 					"application/controller/",
 					"application/view/",
@@ -89,16 +90,9 @@ cmvc_include('utf8.php');
 cmvc_include('validator.php');
 cmvc_include('view.php');
 
-// database
-cmvc_include('dba.php');
-cmvc_include('cmsdba.php');
 
 // pages
-cmvc_include('cmsview.php');
-cmvc_include('control.php');
-cmvc_include('login.php');
-cmvc_include('logout.php');
-cmvc_include('rendercontroller.php');
+cmvc_include('include.php');
 
 
 

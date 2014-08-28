@@ -16,10 +16,18 @@ class CMSDBA extends DbAccess {
 	}
 	
 	
+	//======================================================================================================================================================
+	// methods for frontend rendering
+	//======================================================================================================================================================
+	
 	public function get_element_by_id($id, $obj = false) {
+		if (($id == null) || ($id == '')) {
+			$id = 'null';
+		}
 		$q = "SELECT	*
 				FROM	elements
-				WHERE	id_elements = ".$this->mysqli->real_escape_string($id);
+				WHERE	id_elements = ".$this->mysqli->real_escape_string($id)."
+			ORDER BY	position, ordinal ASC";
 		return $this->run_query($q, false, $obj);
 	}
 	
