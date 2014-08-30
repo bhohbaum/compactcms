@@ -11,7 +11,13 @@ LIBCOMPACTMVC_ENTRY;
  * @link		http://www.adrodev.de
  */
 class ElementsTree extends CMVCController {
+	private $redis;
 	private $id;
+	private $json;
+	private $param0;
+	private $param1;
+	private $param2;
+	private $data;
 	
 	protected function dba() {
 		return "BackendDBA";
@@ -19,14 +25,42 @@ class ElementsTree extends CMVCController {
 	
 	protected function retrieve_data() {
 		DLOG(__METHOD__);
+		$this->redis = new Redis();
+		$this->redis->connect(REDIS_HOST, REDIS_PORT);
 		$this->id = $this->request("id");
+		$this->json = $this->request("json");
+		$this->data = $this->request("data");
+		$this->param0 = $this->request("param0");
+		$this->param1 = $this->request("param1");
+		$this->param2 = $this->request("param2");
 	}
 	
-	protected function run_page_logic() {
+	protected function run_page_logic_get() {
 		DLOG(__METHOD__);
+		if ($this->param0 == "viewstate") {
+			$this->json_response(json_decode($this->redis->get("viewstate_".$_COOKIE["PHPSESSID"]), true));
+			return;
+		}
 		$etree = $this->db->get_element_by_id($this->id);
 		$this->add_sub_elements($etree);
-		$this->json_response($etree);
+		if ($this->json == '1') {
+			$this->json_response($etree);
+			return;
+		}
+		$this->view->add_template("header.tpl");
+		$this->view->add_template("elementstree.tpl");
+		$this->view->add_template("footer.tpl");
+		$this->view->set_value("etree", $etree);
+		
+	}
+	
+	protected function run_page_logic_post() {
+		DLOG(__METHOD__);
+		if ($this->param0 == "viewstate") {
+			$val = urldecode($this->data);
+			$this->redis->set("viewstate_".$_COOKIE["PHPSESSID"], $val);
+			$this->json_response($val);
+		}
 	}
 	
 	private function add_sub_elements(&$parent) {

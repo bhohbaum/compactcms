@@ -60,7 +60,7 @@ class CMSDBA extends DbAccess {
 			INNER JOIN	element_data_types
 				ON		element_data.fk_id_element_data_types = element_data_types.id_element_data_types
 			INNER JOIN	elements
-				ON		element_data.fk_id_elements
+				ON		element_data.fk_id_elements = elements.id_elements
 				WHERE	elements.id_elements = ".$this->mysqli->real_escape_string($id)."
 				AND		element_data_types.name = '".$this->mysqli->real_escape_string($type_name)."'";
 		return $this->run_query($q, false, $obj);

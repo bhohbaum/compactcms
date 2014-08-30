@@ -22,11 +22,12 @@ class Main {
 	
 	public function dispatch() {
 		$this->ad = new ActionDispatcher("action");
-		$this->ad->set_handler("",				"Login");
-		$this->ad->set_handler("login", 		"Login");
-		$this->ad->set_handler("logout", 		"Logout");
-		$this->ad->set_handler("control",	 	"Control");
-		$this->ad->set_handler("elementstree", 	"ElementsTree");
+		$this->ad->set_handler("",					"Login");
+		$this->ad->set_handler("login", 			"Login");
+		$this->ad->set_handler("logout", 			"Logout");
+		$this->ad->set_handler("control",		 	"Control");
+		$this->ad->set_handler("elemdataeditor",	"ElemDataEditor");
+		$this->ad->set_handler("elementstree", 		"ElementsTree");
 		$this->ad->set_default("login");
 //		$this->ad->set_control("control");
 		$this->ad->run();

@@ -1,1 +1,1 @@
-<li><img src="<?= $this->get_data("src") ?>" alt=""></li>
+<li><img src="<?= $this->data("src") ?>" alt=""></li>

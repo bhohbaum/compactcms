@@ -14,6 +14,7 @@
 		<!-- Javascript -->
 		<script type="text/javascript" src="/assets/js/jquery-1.10.1.min.js"></script>
         <script type="text/javascript" src="/assets/js/dropzone.js"></script>
+        <script type="text/javascript" src="/assets/js/ajax.js"></script>
         <script type="text/javascript" src="/assets/editor/ckeditor.js"></script>
 		<script type="text/javascript" src="/assets/editor/adapters/jquery.js"></script>
 	</head>

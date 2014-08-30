@@ -20,6 +20,8 @@ class CMSView extends View {
 	private $data;
 	private $id;
 	private $element_data;
+	private $subparts;
+	private $dataarr;
 	
 	public function __construct() {
 		parent::__construct();
@@ -27,7 +29,7 @@ class CMSView extends View {
 	}
 	
 	public function subpart($position) {
-		$out = "";
+		$this->subparts[$position] = "";
 		$children = $this->db->get_element_by_pid_and_position($this->id, $position, true);
 		if (!isset($children)) {
 			return "";
@@ -36,14 +38,14 @@ class CMSView extends View {
 			$subview = new CMSView();
 			$subview->set_id($child->id_elements);
 			$subview->add_template("cms/parts/".$this->db->get_element_type_by_id($this->db->get_element_by_id($child->id_elements, true)->fk_id_element_types, true)->template);
-			$out .= $subview->render();
+			$this->subparts[$position] .= $subview->render(false);
 		}
-		return $out;
+		return $this->subparts[$position];
 	}
 	
-	public function get_data($tname) {
-		$data = $this->db->get_element_data_by_element_id_and_type_name($this->id, $tname, true);
-		return $data->data;
+	public function data($tname) {
+		$this->dataarr[$tname] = $this->db->get_element_data_by_element_id_and_type_name($this->id, $tname, true);
+		return $this->dataarr[$tname]->data;
 	}
 	
 	public function set_id($id) {

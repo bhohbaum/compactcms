@@ -89,21 +89,23 @@ class View {
 		$this->tpls = array();
 	}
 
-	public function render() {
-		$start = microtime(true);
-		$key = REDIS_KEY_RCACHE_PFX . md5(serialize($this));
-		$out = $this->redis->get($key);
-		if ($out != null) {
-			$this->redis->expire($key, REDIS_KEY_RCACHE_TTL);
+	public function render($caching = true) {
+		if ($caching) {
+			$start = microtime(true);
+			$key = REDIS_KEY_RCACHE_PFX . md5(serialize($this));
+			$out = $this->redis->get($key);
+			if ($out != null) {
+				$this->redis->expire($key, REDIS_KEY_RCACHE_TTL);
+				$time_taken = (microtime(true) - $start) * 1000 . " ms";
+				$msg = 'Returning content from render cache... (' . $key . ' | ' . $time_taken . ')';
+				DLOG($msg);
+				return $out;
+			}
 			$time_taken = (microtime(true) - $start) * 1000 . " ms";
-			$msg = 'Returning content from render cache... (' . $key . ' | ' . $time_taken . ')';
+			$msg = 'Starting Rendering... (' . $key . ' | ' . $time_taken . ')';
 			DLOG($msg);
-			return $out;
+			$out = "";
 		}
-		$time_taken = (microtime(true) - $start) * 1000 . " ms";
-		$msg = 'Starting Rendering... (' . $key . ' | ' . $time_taken . ')';
-		DLOG($msg);
-		$out = "";
 		if (DEBUG == 0) {
 			@ob_end_clean();
 		}
@@ -122,11 +124,13 @@ class View {
 		if ((!defined("DEBUG")) || (DEBUG == 0)) {
 			@ob_start();
 		}
-		$this->redis->set($key, $out);
-		$this->redis->expire($key, REDIS_KEY_RCACHE_TTL);
-		$time_taken = (microtime(true) - $start) * 1000 . " ms";
-		$msg = 'Returning rendered content... (' . $key . ' | ' . $time_taken . ')';
-		DLOG($msg);
+		if ($caching) {
+			$this->redis->set($key, $out);
+			$this->redis->expire($key, REDIS_KEY_RCACHE_TTL);
+			$time_taken = (microtime(true) - $start) * 1000 . " ms";
+			$msg = 'Returning rendered content... (' . $key . ' | ' . $time_taken . ')';
+			DLOG($msg);
+		}
 		return $out;
 	}
 
