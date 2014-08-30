@@ -53,7 +53,8 @@ class BackendDBA extends CMSDBA {
 	
 	public function get_element_types($obj = false) {
 		$q = "SELECT	*
-				FROM	element_types";
+				FROM	element_types
+			ORDER BY	description ASC";
 		return $this->run_query($q, true, $obj);
 	}
 	

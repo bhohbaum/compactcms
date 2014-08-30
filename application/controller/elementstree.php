@@ -42,6 +42,7 @@ class ElementsTree extends CMVCController {
 			return;
 		}
 		$etree = $this->db->get_element_by_id($this->id);
+		$etypes = $this->db->get_element_types();
 		$this->add_sub_elements($etree);
 		if ($this->json == '1') {
 			$this->json_response($etree);
@@ -51,7 +52,7 @@ class ElementsTree extends CMVCController {
 		$this->view->add_template("elementstree.tpl");
 		$this->view->add_template("footer.tpl");
 		$this->view->set_value("etree", $etree);
-		
+		$this->view->set_value("etypes", $etypes);
 	}
 	
 	protected function run_page_logic_post() {
@@ -59,6 +60,7 @@ class ElementsTree extends CMVCController {
 		if ($this->param0 == "viewstate") {
 			$val = urldecode($this->data);
 			$this->redis->set("viewstate_".$_COOKIE["PHPSESSID"], $val);
+			$this->redis->expire("viewstate_".$_COOKIE["PHPSESSID"], REDIS_KEY_RCACHE_TTL);
 			$this->json_response($val);
 		}
 	}
