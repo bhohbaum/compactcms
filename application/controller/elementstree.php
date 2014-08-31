@@ -70,6 +70,9 @@ class ElementsTree extends CMVCController {
 	
 	protected function run_page_logic_post() {
 		DLOG(__METHOD__);
+		$viewstate = $this->redis->get("viewstate_".$_COOKIE["PHPSESSID"]);
+		$this->redis->flushAll();
+		$this->redis->set("viewstate_".$_COOKIE["PHPSESSID"], $viewstate);
 		if ($this->param0 == "viewstate") {
 			$val = urldecode($this->data);
 			$this->redis->set("viewstate_".$_COOKIE["PHPSESSID"], $val);
@@ -84,8 +87,11 @@ class ElementsTree extends CMVCController {
 	}
 	
 	protected function run_page_logic_delete() {
+		$viewstate = $this->redis->get("viewstate_".$_COOKIE["PHPSESSID"]);
+		$this->redis->flushAll();
+		$this->redis->set("viewstate_".$_COOKIE["PHPSESSID"], $viewstate);
 		if ($this->param0 == "delete") {
-			$this->db->del_sub_elements($this->db->get_element_by_id($this->param1));
+			$this->db->delete_element_by_id($this->param1);
 		}
 	}
 	
@@ -98,16 +104,6 @@ class ElementsTree extends CMVCController {
 			$this->add_sub_elements($parent["subelements"][$idx]);
 		}
 	}
-	
-	private function del_sub_elements(&$parent) {
-		$this->db->delete_element_by_id($parent["id_elements"]);
-		$this->db->delete_element_data_by_element_id($parent["id_elements"]);
-		$parent["subelements"] = $this->db->get_child_elements_by_pid($parent["id_elements"]);
-		foreach ($parent["subelements"] as $idx => $element) {
-			$this->del_sub_elements($parent["subelements"][$idx]);
-		}
-	}
-	
 	
 	
 	

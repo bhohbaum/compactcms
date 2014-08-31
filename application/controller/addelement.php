@@ -11,6 +11,7 @@ LIBCOMPACTMVC_ENTRY;
  * @link		http://www.adrodev.de
  */
 class AddElement extends CMVCController {
+	private $redis;
 	private $id;
 	private $fk_id_element_types;
 	private $fk_id_parent_element;
@@ -24,6 +25,8 @@ class AddElement extends CMVCController {
 	
 	protected function retrieve_data() {
 		DLOG(__METHOD__);
+		$this->redis = new Redis();
+		$this->redis->connect(REDIS_HOST, REDIS_PORT);
 		$this->id = $this->request("id");
 		$this->fk_id_element_types = $this->request("fk_id_element_types");
 		$this->fk_id_parent_element = $this->request("fk_id_parent_element");
@@ -43,6 +46,9 @@ class AddElement extends CMVCController {
 	
 	protected function run_page_logic_post() {
 		DLOG(__METHOD__);
+		$viewstate = $this->redis->get("viewstate_".$_COOKIE["PHPSESSID"]);
+		$this->redis->flushAll();
+		$this->redis->set("viewstate_".$_COOKIE["PHPSESSID"], $viewstate);
 		$this->view->add_template("header.tpl");
 		$this->view->add_template("addelement.tpl");
 		$this->view->add_template("footer.tpl");

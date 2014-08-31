@@ -1,4 +1,4 @@
-<?php function print_element_tree($e, $l, $t, $i) { ?>
+<?php function print_element_tree($e, $l, $t, $i) { //if (!isset($e["id_elements"])) return; ?>
 	<div style="margin-left: <?= $l * 30 ?>; width: 600px; border-style: solid; border-width: 1px;">
 		<form action="/backend/elementstree/save" method="post">
 			<div style="float: left; width: 400px">
@@ -47,7 +47,7 @@
 	</div>
 	<div id="subelems_<?= $e["id_elements"] ?>" style="display: none">
 		<input type="hidden" id="<?= $e["id_elements"] ?>" class="subelem_display" value="0">
-		<?php foreach ($e["subelements"] as $key => $val) { print_element_tree($val, $l + 1, $t, $i); } ?>
+		<?php foreach ($e["subelements"] as $key => $val) { if (isset($val["id_elements"])) print_element_tree($val, $l + 1, $t, $i); } ?>
 	</div>
 <?php } ?>
 <?php print_element_tree($this->get_value("etree"), 0, $this->get_value("etypes"), $this->get_value("id")); ?>
@@ -86,7 +86,8 @@ function restore_display() {
 
 function delete_element(id) {
 	new $ajax().ok(function(result) {
-		location.reload();
+		location.href = "/backend/elementstree?json=0&id=" + "<?= $this->get_value("id") ?>";
+// 		location.reload();
 	}).del("/backend/elementstree/delete/" + id);
 }
 
