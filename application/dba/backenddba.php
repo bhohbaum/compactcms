@@ -70,6 +70,12 @@ class BackendDBA extends CMSDBA {
 		return $this->run_query($q, false);
 	}
 	
+	public function delete_element_by_id($id) {
+		$q = "DELETE FROM	elements
+				WHERE		id_elements = ".$this->mysqli->real_escape_string($id);
+		return $this->run_query($q, false);
+	}
+	
 	public function add_element_data($fk_id_element_data_types, $fk_id_elements, $fk_id_languages, $data) {
 		$q = "INSERT INTO 	element_data
 							(fk_id_element_data_types, fk_id_elements, fk_id_languages, data)
@@ -77,6 +83,30 @@ class BackendDBA extends CMSDBA {
 							".$this->mysqli->real_escape_string($fk_id_elements).",
 							".$this->mysqli->real_escape_string($fk_id_languages).",
 							'".$this->mysqli->real_escape_string($data)."')";
+		return $this->run_query($q, false);
+	}
+	
+	public function add_element($fk_id_element_types, $fk_id_parent_element, $ordinal, $position, $description) {
+		$fk_id_parent_element = ($fk_id_parent_element == null) ? "null" : $fk_id_parent_element;
+		$q = "INSERT INTO 	elements
+							(fk_id_element_types, fk_id_parent_element, ordinal, position, description)
+				VALUES		(".$this->mysqli->real_escape_string($fk_id_element_types).",
+							".$this->mysqli->real_escape_string($fk_id_parent_element).",
+							".$this->mysqli->real_escape_string($ordinal).",
+							".$this->mysqli->real_escape_string($position).",
+							'".$this->mysqli->real_escape_string($description)."')";
+		return $this->run_query($q, false);
+	}
+	
+	public function update_element($id, $fk_id_element_types, $fk_id_parent_element, $ordinal, $position, $description) {
+		$fk_id_parent_element = ($fk_id_parent_element == null) ? "null" : $fk_id_parent_element;
+		$q = "UPDATE 	elements
+				SET		fk_id_element_types = ".$this->mysqli->real_escape_string($fk_id_element_types).",
+						fk_id_parent_element = ".$this->mysqli->real_escape_string($fk_id_parent_element).",
+						ordinal = ".$this->mysqli->real_escape_string($ordinal).",
+						position = ".$this->mysqli->real_escape_string($position).",
+						description = '".$this->mysqli->real_escape_string($description)."'
+				WHERE	id_elements = ".$this->mysqli->real_escape_string($id);
 		return $this->run_query($q, false);
 	}
 	

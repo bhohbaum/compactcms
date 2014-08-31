@@ -23,6 +23,7 @@ class Main {
 	public function dispatch() {
 		$this->ad = new ActionDispatcher("action");
 		$this->ad->set_handler("",					"Login");
+		$this->ad->set_handler("addelement", 		"AddElement");
 		$this->ad->set_handler("login", 			"Login");
 		$this->ad->set_handler("logout", 			"Logout");
 		$this->ad->set_handler("control",		 	"Control");

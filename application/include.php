@@ -6,6 +6,7 @@ cmvc_include('cmsdba.php');
 cmvc_include('backenddba.php');
 
 // controller
+cmvc_include('addelement.php');
 cmvc_include('cmsview.php');
 cmvc_include('control.php');
 cmvc_include('elemdataeditor.php');

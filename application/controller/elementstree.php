@@ -18,6 +18,12 @@ class ElementsTree extends CMVCController {
 	private $param1;
 	private $param2;
 	private $data;
+	private $id_elements;
+	private $fk_id_element_types;
+	private $fk_id_parent_element;
+	private $ordinal;
+	private $position;
+	private $description;
 	
 	protected function dba() {
 		return "BackendDBA";
@@ -33,6 +39,12 @@ class ElementsTree extends CMVCController {
 		$this->param0 = $this->request("param0");
 		$this->param1 = $this->request("param1");
 		$this->param2 = $this->request("param2");
+		$this->id_elements = $this->request("id_elements");
+		$this->fk_id_element_types = $this->request("fk_id_element_types");
+		$this->fk_id_parent_element = $this->request("fk_id_parent_element");
+		$this->ordinal = $this->request("ordinal");
+		$this->position = $this->request("position");
+		$this->description = $this->request("description");
 	}
 	
 	protected function run_page_logic_get() {
@@ -51,6 +63,7 @@ class ElementsTree extends CMVCController {
 		$this->view->add_template("header.tpl");
 		$this->view->add_template("elementstree.tpl");
 		$this->view->add_template("footer.tpl");
+		$this->view->set_value("id", $this->id);
 		$this->view->set_value("etree", $etree);
 		$this->view->set_value("etypes", $etypes);
 	}
@@ -62,6 +75,17 @@ class ElementsTree extends CMVCController {
 			$this->redis->set("viewstate_".$_COOKIE["PHPSESSID"], $val);
 			$this->redis->expire("viewstate_".$_COOKIE["PHPSESSID"], REDIS_KEY_RCACHE_TTL);
 			$this->json_response($val);
+			return;
+		} else if ($this->param0 == "save") {
+			$this->db->update_element($this->id_elements, $this->fk_id_element_types, $this->fk_id_parent_element, $this->ordinal, $this->position, $this->description);
+			$this->run_page_logic_get();
+			return;
+		}
+	}
+	
+	protected function run_page_logic_delete() {
+		if ($this->param0 == "delete") {
+			$this->db->del_sub_elements($this->db->get_element_by_id($this->param1));
 		}
 	}
 	
@@ -72,6 +96,15 @@ class ElementsTree extends CMVCController {
 		$parent["subelements"] = $this->db->get_child_elements_by_pid($parent["id_elements"]);
 		foreach ($parent["subelements"] as $idx => $element) {
 			$this->add_sub_elements($parent["subelements"][$idx]);
+		}
+	}
+	
+	private function del_sub_elements(&$parent) {
+		$this->db->delete_element_by_id($parent["id_elements"]);
+		$this->db->delete_element_data_by_element_id($parent["id_elements"]);
+		$parent["subelements"] = $this->db->get_child_elements_by_pid($parent["id_elements"]);
+		foreach ($parent["subelements"] as $idx => $element) {
+			$this->del_sub_elements($parent["subelements"][$idx]);
 		}
 	}
 	
