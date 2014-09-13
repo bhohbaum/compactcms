@@ -77,9 +77,13 @@ class ElementsTree extends CMVCController {
 			$val = urldecode($this->data);
 			$this->redis->set("viewstate_".$_COOKIE["PHPSESSID"], $val);
 			$this->redis->expire("viewstate_".$_COOKIE["PHPSESSID"], REDIS_KEY_RCACHE_TTL);
-			$this->json_response($val);
+			$this->json_response(json_decode($val));
 			return;
 		} else if ($this->param0 == "save") {
+			$this->db->update_element($this->id_elements, $this->fk_id_element_types, $this->fk_id_parent_element, $this->ordinal, $this->position, $this->description);
+			$this->run_page_logic_get();
+			return;
+		} else if ($this->param0 == "copysubtree") {
 			$this->db->update_element($this->id_elements, $this->fk_id_element_types, $this->fk_id_parent_element, $this->ordinal, $this->position, $this->description);
 			$this->run_page_logic_get();
 			return;
