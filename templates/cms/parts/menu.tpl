@@ -14,16 +14,12 @@
 								<li class="sub-menu"><a href="?id=1">Über uns</a></li>
 								<li class="sub-menu"><a href="?id=1">Service</a>
 									<ul>
-										<li><a href="#">Photo</a></li>
+										<li><a href="/app/rendercontroller?id=46">Bewerbung</a></li>
+										<li><a href="/app/rendercontroller?id=47">Passfotos</a></li>
+										<li><a href="/app/rendercontroller?id=48">Hochzeiten</a></li>
+										<li><a href="/app/rendercontroller?id=49">Kinder und Familie</a></li>
 										<li><a href="#">Video</a></li>
-										<li><a href="#">Werbung</a>
-											<ul>
-												<li><a href="#">Werbetexte</a></li>
-												<li><a href="#">Logos</a></li>
-												<li><a href="#">Design</a></li>
-												<li><a href="#">Printmedien</a></li>
-											</ul>
-										</li>
+										<li><a href="#">Werbung</a></li>
 									</ul>
 								</li>
 								<li class="sub-menu"><a href="?id=1">Aktuelles</a></li>

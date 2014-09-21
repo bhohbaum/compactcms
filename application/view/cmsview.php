@@ -22,10 +22,12 @@ class CMSView extends View {
 	private $element_data;
 	private $subparts;
 	private $dataarr;
+	private $root;
 	
 	public function __construct() {
 		parent::__construct();
 		$this->db = DbAccess::get_instance("CMSDBA");
+		$this->root = false;
 	}
 	
 	public function subpart($position) {
@@ -37,8 +39,13 @@ class CMSView extends View {
 		foreach ($children as $child) {
 			$subview = new CMSView();
 			$subview->set_id($child->id_elements);
-			$subview->add_template("cms/parts/".$this->db->get_element_type_by_id($this->db->get_element_by_id($child->id_elements, true)->fk_id_element_types, true)->template);
-			$this->subparts[$position] .= $subview->render(false);
+			$elem = $this->db->get_element_type_by_id($this->db->get_element_by_id($child->id_elements, true)->fk_id_element_types, true);
+// 			var_dump($this->root);
+// 			var_dump($elem);
+			if (($elem->is_page == "0") || ($this->root)) {
+				$subview->add_template("cms/parts/".$elem->template);
+				$this->subparts[$position] .= $subview->render(false);
+			}
 		}
 		return $this->subparts[$position];
 	}
@@ -54,6 +61,14 @@ class CMSView extends View {
 	
 	public function get_id() {
 		return $this->id;
+	}
+	
+	public function set_root($root) {
+		$this->root = $root;
+	}
+	
+	public function get_root() {
+		return $this->root;
 	}
 	
 }
