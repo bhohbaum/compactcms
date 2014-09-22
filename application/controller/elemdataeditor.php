@@ -44,6 +44,8 @@ class ElemDataEditor extends CMVCController {
 		$this->view->set_value("id", $this->id);
 		$this->view->set_value("edtypes", $this->edtypes);
 		$this->view->set_value("edata", $this->edata);
+		$template = file_get_contents("./templates/cms/parts/".$this->db->get_element_type_by_id($this->element["fk_id_element_types"], true)->template);
+		$this->view->set_value("template", nl2br(htmlentities($template)));
 	}
 	
 	protected function run_page_logic_post() {

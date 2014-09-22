@@ -1,5 +1,6 @@
 <?php function print_element_tree($e, $l, $t, $i) { //if (!isset($e["id_elements"])) return; ?>
-	<div style="margin-left: <?= $l * 30 ?>; width: 600px; border-style: solid; border-width: 1px;">
+	<!-- margin-left: <?= $l * 30 ?>;  -->
+	<div style="width: 600px; border-style: solid; border-width: 1px;">
 		<form id="pgtreeform_<?= $e["id_elements"] ?>" name="pgtreeform_<?= $e["id_elements"] ?>" action="/backend/elementstree/save" method="post">
 			<div style="float: left; width: 400px">
 				<div>
@@ -38,8 +39,8 @@
 				<button onclick="window.open('/backend/addelement?id=<?= $e["id_elements"] ?>'); return false;">New</button>
 				<button onclick="window.open('/backend/elemdataeditor?id=<?= $e["id_elements"] ?>'); return false;">Edit data</button>
 				<?php if (count($e["subelements"]) > 0) { ?>
-					<button onclick="$('#<?= $e["id_elements"] ?>').val(1) ; $('#subelems_<?= $e["id_elements"] ?>').show(); save_display(); return false;">Show subelements</button>
-					<button onclick="$('#<?= $e["id_elements"] ?>').val(0) ; $('#subelems_<?= $e["id_elements"] ?>').hide(); save_display(); return false;">Hide subelements</button>
+				<!-- 	<button onclick="$('#<?= $e["id_elements"] ?>').val(1) ; $('#subelems_<?= $e["id_elements"] ?>').show(); $('#subelems_plh_<?= $e["id_elements"] ?>').hide(); save_display(); return false;">Show subelements</button>   -->
+					<button id="subelems_btn_<?= $e["id_elements"] ?>" onclick="$('#<?= $e["id_elements"] ?>').val(0); $('#subelems_<?= $e["id_elements"] ?>').hide(); $('#subelems_plh_<?= $e["id_elements"] ?>').show(); $('#subelems_btn_<?= $e["id_elements"] ?>').hide(); save_display(); return false;">Hide subelements</button>
 				<?php } ?>
 			</div>
 			<div style="clear: both"></div>
@@ -48,11 +49,19 @@
 			<input type="hidden" name="fk_id_parent_element" value="<?= $e["fk_id_parent_element"] ?>">
 		</form>
 	</div>
-	<div id="subelems_<?= $e["id_elements"] ?>" style="display: none">
+	<div id="subelems_<?= $e["id_elements"] ?>" style="margin-left: 30px; display: none; border-style: dotted; border-width: 1px; border-color: red">
 		<input type="hidden" id="<?= $e["id_elements"] ?>" class="subelem_display" value="0">
 		<?php foreach ($e["subelements"] as $key => $val) { if (isset($val["id_elements"])) print_element_tree($val, $l + 1, $t, $i); } ?>
 	</div>
-<?php } ?>
+	<?php if (count($e["subelements"]) > 0) { ?>
+		<div id="subelems_plh_<?= $e["id_elements"] ?>" style="margin-left: 30px; display: block; border-style: dotted; border-width: 1px; border-color: red"
+			onclick="$('#<?= $e["id_elements"] ?>').val(1) ; $('#subelems_<?= $e["id_elements"] ?>').show(); $('#subelems_plh_<?= $e["id_elements"] ?>').hide(); $('#subelems_btn_<?= $e["id_elements"] ?>').show(); save_display(); return false;">
+			<div style="border-style: solid; border-width: 1px; border-color: black">
+				&nbsp;+
+			</div>
+		</div>
+	<?php } ?>
+	<?php } ?>
 <?php print_element_tree($this->get_value("etree"), 0, $this->get_value("etypes"), $this->get_value("id")); ?>
 <script type="text/javascript">
 
@@ -81,8 +90,12 @@ function restore_display() {
 				$(this).val((result[parseInt($(this).attr("id"))] == 1) ? 1 : 0);
 				if ((result[parseInt($(this).attr("id"))] == 0) || (result[$(this).attr("id")] == null)) {
 					$('#subelems_' + parseInt($(this).attr("id"))).hide();
+					$('#subelems_plh_' + parseInt($(this).attr("id"))).show();
+					$('#subelems_btn_' + parseInt($(this).attr("id"))).hide();
 				} else if (parseInt(result[$(this).attr("id")]) == 1) {
 					$('#subelems_' + parseInt($(this).attr("id"))).show();
+					$('#subelems_plh_' + parseInt($(this).attr("id"))).hide();
+					$('#subelems_btn_' + parseInt($(this).attr("id"))).show();
 				}
 			});
 			setScrollXY(result[0]);

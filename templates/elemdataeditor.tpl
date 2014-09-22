@@ -13,3 +13,7 @@
 	<br /><br />
 	<input type="submit" />
 </form>
+<br /><br /><br />
+<div>
+	<?= $this->get_value("template") ?>
+</div>
