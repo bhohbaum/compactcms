@@ -27,6 +27,13 @@ class BackendDBA extends CMSDBA {
 		return $this->run_query($q, true, $obj);
 	}
 	
+	public function get_element_data_by_element_id($id, $obj = false) {
+		$q = "SELECT 	*
+				FROM	element_data
+				WHERE	fk_id_elements = ".$this->mysqli->real_escape_string($id);
+		return $this->run_query($q, true, $obj);
+	}
+	
 	public function get_element_data_types_by_element_id($id, $obj = false) {
 		$q = "SELECT	element_data_types.*
 				FROM	elements

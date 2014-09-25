@@ -70,9 +70,6 @@ class ElementsTree extends CMVCController {
 	
 	protected function run_page_logic_post() {
 		DLOG(__METHOD__);
-		$viewstate = $this->redis->get("viewstate_".$_COOKIE["PHPSESSID"]);
-		$this->redis->flushAll();
-		$this->redis->set("viewstate_".$_COOKIE["PHPSESSID"], $viewstate);
 		if ($this->param0 == "viewstate") {
 			$val = urldecode($this->data);
 			$this->redis->set("viewstate_".$_COOKIE["PHPSESSID"], $val);
@@ -80,12 +77,17 @@ class ElementsTree extends CMVCController {
 			$this->json_response(json_decode($val));
 			return;
 		} else if ($this->param0 == "save") {
+			$viewstate = $this->redis->get("viewstate_".$_COOKIE["PHPSESSID"]);
+			$this->redis->flushAll();
+			$this->redis->set("viewstate_".$_COOKIE["PHPSESSID"], $viewstate);
 			$this->db->update_element($this->id_elements, $this->fk_id_element_types, $this->fk_id_parent_element, $this->ordinal, $this->position, $this->description);
 			$this->run_page_logic_get();
 			return;
 		} else if ($this->param0 == "copysubtree") {
-			$this->db->update_element($this->id_elements, $this->fk_id_element_types, $this->fk_id_parent_element, $this->ordinal, $this->position, $this->description);
-			$this->run_page_logic_get();
+			$src_parent =$this->db->get_element_by_id($this->id);
+			$tgt_parent =$this->db->get_element_by_id($this->fk_id_parent_element);
+			$this->copy_subtree($src_parent, $tgt_parent);
+			$this->json_response(true);
 			return;
 		}
 	}
@@ -106,6 +108,28 @@ class ElementsTree extends CMVCController {
 		$parent["subelements"] = $this->db->get_child_elements_by_pid($parent["id_elements"]);
 		foreach ($parent["subelements"] as $idx => $element) {
 			$this->add_sub_elements($parent["subelements"][$idx]);
+		}
+	}
+	
+	private function copy_subtree(&$src_parent, &$tgt_parent) {
+		if ($src_parent == null) {
+			return;
+		}
+		if ($tgt_parent == null) {
+			return;
+		}
+		$id = $this->db->add_element($src_parent["fk_id_element_types"], $tgt_parent["id_elements"], $src_parent["ordinal"], $src_parent["position"], $src_parent["description"]);
+		$elem = $this->db->get_element_by_id($id);
+		$src_parent["subelements"] = $this->db->get_child_elements_by_pid($src_parent["id_elements"]);
+		foreach ($src_parent["subelements"] as $idx => $element) {
+			$this->copy_subtree($src_parent["subelements"][$idx], $elem);
+		}
+	}
+	
+	private function copy_element_data($src_elem, $tgt_elem) {
+		$data = $this->db->get_element_data_by_element_id($src_elem["id_elements"]);
+		foreach ($data as $key => $val) {
+			$this->db->add_element_data($val["fk_id_element_data_types"], $tgt_elem["id_elements"], $val["fk_id_languages"], $val["data"]);
 		}
 	}
 	
