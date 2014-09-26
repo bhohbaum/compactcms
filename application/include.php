@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // database
 cmvc_include('dba.php');
@@ -14,6 +14,5 @@ cmvc_include('elementstree.php');
 cmvc_include('login.php');
 cmvc_include('logout.php');
 cmvc_include('rendercontroller.php');
-
 
 ?>

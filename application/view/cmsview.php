@@ -23,14 +23,14 @@ class CMSView extends View {
 	private $subparts;
 	private $dataarr;
 	private $root;
-	
+
 	public function __construct() {
 		parent::__construct();
 		$this->db = DbAccess::get_instance("CMSDBA");
 		$this->root = false;
 		$this->dataarr = array();
 	}
-	
+
 	public function subpart($position) {
 		$this->subparts[$position] = "";
 		$children = $this->db->get_element_by_pid_and_position($this->id, $position, true);
@@ -42,36 +42,37 @@ class CMSView extends View {
 			$subview->set_id($child->id_elements);
 			$elem = $this->db->get_element_type_by_id($this->db->get_element_by_id($child->id_elements, true)->fk_id_element_types, true);
 			if (($elem->is_page == "0") || ($this->root)) {
-				$subview->add_template("cms/parts/".$elem->template);
+				$subview->add_template("cms/parts/" . $elem->template);
 				$this->subparts[$position] .= $subview->render(false);
 			}
 		}
 		return $this->subparts[$position];
 	}
-	
+
 	public function data($tname) {
 		if (!array_key_exists($tname, $this->dataarr)) {
 			$this->dataarr[$tname] = $this->db->get_element_data_by_element_id_and_type_name($this->id, $tname, true);
 		}
 		return $this->dataarr[$tname]->data;
 	}
-	
+
 	public function set_id($id) {
 		$this->id = $id;
 	}
-	
+
 	public function get_id() {
 		return $this->id;
 	}
-	
+
 	public function set_root($root) {
 		$this->root = $root;
 	}
-	
+
 	public function get_root() {
 		return $this->root;
 	}
-	
+
+
 }
 
 ?>

@@ -1,14 +1,14 @@
 <?php
-@include_once('../libcompactmvc.php');
+@include_once ('../libcompactmvc.php');
 LIBCOMPACTMVC_ENTRY;
 
 /**
  * Test page
  *
- * @author      Botho Hohbaum <bhohbaum@googlemail.com>
- * @package     LibCompactMVC
- * @copyright   Copyright (c) Botho Hohbaum 19.02.2014
- * @link		http://www.adrodev.de
+ * @author Botho Hohbaum <bhohbaum@googlemail.com>
+ * @package LibCompactMVC
+ * @copyright Copyright (c) Botho Hohbaum 19.02.2014
+ * @link http://www.adrodev.de
  */
 class ElementsTree extends CMVCController {
 	private $redis;
@@ -24,11 +24,11 @@ class ElementsTree extends CMVCController {
 	private $ordinal;
 	private $position;
 	private $description;
-	
+
 	protected function dba() {
 		return "BackendDBA";
 	}
-	
+
 	protected function retrieve_data() {
 		DLOG(__METHOD__);
 		$this->redis = new Redis();
@@ -46,11 +46,11 @@ class ElementsTree extends CMVCController {
 		$this->position = $this->request("position");
 		$this->description = $this->request("description");
 	}
-	
+
 	protected function run_page_logic_get() {
 		DLOG(__METHOD__);
 		if ($this->param0 == "viewstate") {
-			$this->json_response(json_decode($this->redis->get("viewstate_".$_COOKIE["PHPSESSID"]), true));
+			$this->json_response(json_decode($this->redis->get("viewstate_" . $_COOKIE["PHPSESSID"]), true));
 			return;
 		}
 		$etree = $this->db->get_element_by_id($this->id);
@@ -67,40 +67,40 @@ class ElementsTree extends CMVCController {
 		$this->view->set_value("etree", $etree);
 		$this->view->set_value("etypes", $etypes);
 	}
-	
+
 	protected function run_page_logic_post() {
 		DLOG(__METHOD__);
 		if ($this->param0 == "viewstate") {
 			$val = urldecode($this->data);
-			$this->redis->set("viewstate_".$_COOKIE["PHPSESSID"], $val);
-			$this->redis->expire("viewstate_".$_COOKIE["PHPSESSID"], REDIS_KEY_RCACHE_TTL);
+			$this->redis->set("viewstate_" . $_COOKIE["PHPSESSID"], $val);
+			$this->redis->expire("viewstate_" . $_COOKIE["PHPSESSID"], REDIS_KEY_RCACHE_TTL);
 			$this->json_response(json_decode($val));
 			return;
 		} else if ($this->param0 == "save") {
-			$viewstate = $this->redis->get("viewstate_".$_COOKIE["PHPSESSID"]);
+			$viewstate = $this->redis->get("viewstate_" . $_COOKIE["PHPSESSID"]);
 			$this->redis->flushAll();
-			$this->redis->set("viewstate_".$_COOKIE["PHPSESSID"], $viewstate);
+			$this->redis->set("viewstate_" . $_COOKIE["PHPSESSID"], $viewstate);
 			$this->db->update_element($this->id_elements, $this->fk_id_element_types, $this->fk_id_parent_element, $this->ordinal, $this->position, $this->description);
 			$this->run_page_logic_get();
 			return;
 		} else if ($this->param0 == "copysubtree") {
-			$src_parent =$this->db->get_element_by_id($this->id);
-			$tgt_parent =$this->db->get_element_by_id($this->fk_id_parent_element);
+			$src_parent = $this->db->get_element_by_id($this->id);
+			$tgt_parent = $this->db->get_element_by_id($this->fk_id_parent_element);
 			$this->copy_subtree($src_parent, $tgt_parent);
 			$this->json_response(true);
 			return;
 		}
 	}
-	
+
 	protected function run_page_logic_delete() {
-		$viewstate = $this->redis->get("viewstate_".$_COOKIE["PHPSESSID"]);
+		$viewstate = $this->redis->get("viewstate_" . $_COOKIE["PHPSESSID"]);
 		$this->redis->flushAll();
-		$this->redis->set("viewstate_".$_COOKIE["PHPSESSID"], $viewstate);
+		$this->redis->set("viewstate_" . $_COOKIE["PHPSESSID"], $viewstate);
 		if ($this->param0 == "delete") {
 			$this->db->delete_element_by_id($this->param1);
 		}
 	}
-	
+
 	private function add_sub_elements(&$parent) {
 		if ($parent != null) {
 			$parent["fk_id_element_types"] = $this->db->get_element_type_by_id($parent["fk_id_element_types"]);
@@ -110,7 +110,7 @@ class ElementsTree extends CMVCController {
 			$this->add_sub_elements($parent["subelements"][$idx]);
 		}
 	}
-	
+
 	private function copy_subtree(&$src_parent, &$tgt_parent) {
 		if ($src_parent == null) {
 			return;
@@ -126,16 +126,15 @@ class ElementsTree extends CMVCController {
 			$this->copy_subtree($src_parent["subelements"][$idx], $elem);
 		}
 	}
-	
+
 	private function copy_element_data($src_elem, $tgt_elem) {
 		$data = $this->db->get_element_data_by_element_id($src_elem["id_elements"]);
 		foreach ($data as $key => $val) {
 			$this->db->add_element_data($val["fk_id_element_data_types"], $tgt_elem["id_elements"], $val["fk_id_languages"], $val["data"]);
 		}
 	}
-	
-	
-	
+
+
 }
 
 ?>

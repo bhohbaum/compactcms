@@ -1,11 +1,10 @@
-<?php function print_element_tree($e, $l, $t, $i) { //if (!isset($e["id_elements"])) return; ?>
-	<?php //var_dump($e["fk_id_element_types"]); ?>
-	<div style="width: 600px; border-style: solid; border-width: 1px; <?= ($e["fk_id_element_types"]["is_page"] == "1") ? "background-color: #CCFFDD" : "" ?>">
+<?php function print_element_tree($e, $l, $t, $i) { $color = ($e["fk_id_parent_element"] != null) ? "#CCFFDD" : "#FFCCDD" ;?>
+	<div style="width: 600px; border-style: solid; border-width: 1px; <?= ($e["fk_id_element_types"]["is_page"] == "1") ? "background-color: ".$color : "" ?>">
 		<form id="pgtreeform_<?= $e["id_elements"] ?>" name="pgtreeform_<?= $e["id_elements"] ?>" action="/backend/elementstree/save" method="post">
 			<div style="float: left; width: 410px">
 				<div>
 					<div>
-						<div style="float: left; width: 120px">Element ID:</div>
+						<div style="float: left; width: 130px">Element ID:</div>
 						<input name="id_elements" type=text value="<?= $e["id_elements"] ?>" disabled="disabled" style="float: left; width: 60px" />
 						<button onclick="copy_subtree(<?= $e["id_elements"] ?>);" style="margin-left: 30px">Copy to parent:</button>
 						<input id="new_fk_id_parent_element_<?= $e["id_elements"] ?>" name="new_fk_id_parent_element" type=text value="" style="float: right; width: 60px" />
@@ -19,7 +18,7 @@
 							<?php } ?>
 						</select>
 					</div>
-					<div style="float: left; width: 180">
+					<div style="float: left; width: 190">
 						<div style="float: left; width: 100px">Ordinal Nr.:</div>
 						<input name="ordinal" type=text value="<?= $e["ordinal"] ?>" style="float: right; width: 60px" /><br style="clear: both" />
 					</div>
@@ -106,7 +105,6 @@ function restore_display() {
 					$('#subelems_btn_' + parseInt($(this).attr("id"))).show();
 				}
 			});
-// 			window.setTimeout(function(){setScrollXY(result[0])}, 300);
 			setScrollXY(result[0]);
 		}
 	}).get("/backend/elementstree/viewstate");
