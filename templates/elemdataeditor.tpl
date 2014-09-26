@@ -11,7 +11,7 @@
 	<?php } ?>
 	<input name="id" type="hidden" value="<?= $this->get_value("id") ?>" />
 	<br /><br />
-	<input type="submit" />
+	<input type="submit" value="Save & Close" />
 </form>
 <br /><br /><br />
 <div>

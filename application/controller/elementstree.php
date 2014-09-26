@@ -120,6 +120,7 @@ class ElementsTree extends CMVCController {
 		}
 		$id = $this->db->add_element($src_parent["fk_id_element_types"], $tgt_parent["id_elements"], $src_parent["ordinal"], $src_parent["position"], $src_parent["description"]);
 		$elem = $this->db->get_element_by_id($id);
+		$this->copy_element_data($src_parent, $elem);
 		$src_parent["subelements"] = $this->db->get_child_elements_by_pid($src_parent["id_elements"]);
 		foreach ($src_parent["subelements"] as $idx => $element) {
 			$this->copy_subtree($src_parent["subelements"][$idx], $elem);

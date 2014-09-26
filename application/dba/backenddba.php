@@ -84,6 +84,7 @@ class BackendDBA extends CMSDBA {
 	}
 	
 	public function add_element_data($fk_id_element_data_types, $fk_id_elements, $fk_id_languages, $data) {
+		$fk_id_languages = ($fk_id_languages == null) ? "null" : $fk_id_languages;
 		$q = "INSERT INTO 	element_data
 							(fk_id_element_data_types, fk_id_elements, fk_id_languages, data)
 				VALUES		(".$this->mysqli->real_escape_string($fk_id_element_data_types).",
