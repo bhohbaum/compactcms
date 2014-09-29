@@ -55,6 +55,16 @@ class CMSView extends View {
 		}
 		return $this->dataarr[$tname]->data;
 	}
+	
+	public function render($caching = true) {
+		$elem = $this->db->get_element_type_by_id($this->db->get_element_by_id($this->id, true)->fk_id_element_types, true);
+		if (($elem->is_page == "0") || ($this->root)) {
+			$res = parent::render($caching);
+		} else {
+			$res = "";
+		}
+		return $res;
+	}
 
 	public function set_id($id) {
 		$this->id = $id;
