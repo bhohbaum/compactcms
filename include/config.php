@@ -71,6 +71,9 @@ define('TRACKING_MAIL_SENT', 	"mail_sent");
 define('TRACKING_MAIL_OPENED', 	"mail_opened");
 define('TRACKING_LINK_CLICKED',	"link_clicked");
 
+
+define('ROOT_ELEM_DESC', "root");
+
 // Session
 define('SESSION_DYNAMIC_ID_DISABLED', true);
 

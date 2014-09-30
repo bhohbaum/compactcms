@@ -1,4 +1,6 @@
-<?php function print_element_tree($e, $l, $t, $i) { $color = ($e["fk_id_parent_element"] != null) ? "#CCFFDD" : "#FFCCDD" ;?>
+
+<?php function print_element_tree($e, $l, $t, $i) { 
+	$color = ($e["fk_id_parent_element"] != null) ? "#CCFFDD" : "#FFCCDD" ;?>
 	<div style="width: 600px; border-style: solid; border-width: 1px; <?= ($e["fk_id_element_types"]["is_page"] == "1") ? "background-color: ".$color : "" ?>">
 		<form id="pgtreeform_<?= $e["id_elements"] ?>" name="pgtreeform_<?= $e["id_elements"] ?>" action="/backend/elementstree/save" method="post">
 			<div style="float: left; width: 410px">
