@@ -1,3 +1,6 @@
+<div style="margin: 20px;">
+	<button onclick="generate_seo_links()">Generate SEO links</button>
+</div>
 
 <?php function print_element_tree($e, $l, $t, $i) { 
 	$color = ($e["fk_id_parent_element"] != null) ? "#CCFFDD" : "#FFCCDD" ;?>
@@ -172,6 +175,17 @@ function setScrollXY(scr) {
 		document.documentElement.scrollLeft = scrX;
 	}
 	return [scrX, scrY];
+}
+
+function generate_seo_links() {
+	new $ajax().ok(function(result) {
+		result = JSON.parse(result);
+		console.log(result);
+		save_display(function(){ 
+			location.href = "/backend/elementstree?json=0&id=<?= $this->get_value("id") ?>"; 
+		});
+	}).get("/backend/seolinks/generate/");
+	return false;
 }
 
 restore_display();

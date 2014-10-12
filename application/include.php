@@ -14,5 +14,6 @@ cmvc_include('elementstree.php');
 cmvc_include('login.php');
 cmvc_include('logout.php');
 cmvc_include('rendercontroller.php');
+cmvc_include('seolinks.php');
 
 ?>
