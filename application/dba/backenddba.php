@@ -26,6 +26,15 @@ class BackendDBA extends CMSDBA {
 		return $this->run_query($q, true, $obj);
 	}
 
+	public function get_pages($obj = false) {
+		$q = "SELECT	elements.*
+				FROM	elements
+			INNER JOIN	element_types
+				ON		elements.fk_id_element_types = element_types.id_element_types
+				WHERE	element_types.is_page = 1";
+		return $this->run_query($q, true, $obj);
+	}
+
 	public function get_element_data_by_element_id($id, $obj = false) {
 		$q = "SELECT 	*
 				FROM	element_data

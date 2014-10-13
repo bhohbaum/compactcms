@@ -36,7 +36,9 @@ class Main {
 
 // redirect
 if (substr($_SERVER["REQUEST_URI"], 0, 4) != "/app") {
-	header("Location: /app/");
+	if (!(substr($_SERVER["REQUEST_URI"], 0, 4) != "/seolinks")) {
+		header("Location: /app/");
+	}
 }
 
 // entry point (MAIN)

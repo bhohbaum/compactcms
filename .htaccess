@@ -1,25 +1,42 @@
 RewriteEngine on
 
-RewriteRule ^app$ /index.php?&action=&%{QUERY_STRING} [L]
+RewriteBase /
 
-RewriteRule ^app/([^/]*)$ /index.php?&action=$1&%{QUERY_STRING} [L]
-RewriteRule ^app/([^/]*)/([^/]*)$ /index.php?&action=$1&param0=$2&%{QUERY_STRING} [L]
-RewriteRule ^app/([^/]*)/([^/]*)/([^/]*)$ /index.php?&action=$1&param0=$2&param1=$3&%{QUERY_STRING} [L]
-RewriteRule ^app/([^/]*)/([^/]*)/([^/]*)/([^/]*)$ /index.php?&action=$1&param0=$2&param1=$3&param2=$4&%{QUERY_STRING} [L]
-RewriteRule ^app/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)$ /index.php?&action=$1&param0=$2&param1=$3&param2=$4&param3=$5&%{QUERY_STRING} [L]
+RewriteRule ^seolinks/About app/rendercontroller?id=23&%{QUERY_STRING} [L]
+RewriteRule ^seolinks/service app/rendercontroller?id=42&%{QUERY_STRING} [L]
+RewriteRule ^seolinks/Aktuelles app/rendercontroller?id=43&%{QUERY_STRING} [L]
+RewriteRule ^seolinks/Kontakt app/rendercontroller?id=44&%{QUERY_STRING} [L]
+RewriteRule ^seolinks/bewerbungsbilder app/rendercontroller?id=46&%{QUERY_STRING} [L]
+RewriteRule ^seolinks/Passfotos app/rendercontroller?id=47&%{QUERY_STRING} [L]
+RewriteRule ^seolinks/hochzeiten app/rendercontroller?id=48&%{QUERY_STRING} [L]
+RewriteRule ^seolinks/kinder_und_familie app/rendercontroller?id=49&%{QUERY_STRING} [L]
+RewriteRule ^seolinks/portrait app/rendercontroller?id=116&%{QUERY_STRING} [L]
+RewriteRule ^seolinks/bewerbungsbilder_tipps app/rendercontroller?id=126&%{QUERY_STRING} [L]
+RewriteRule ^seolinks/bewerbungsbilder_formelle_regeln app/rendercontroller?id=136&%{QUERY_STRING} [L]
+RewriteRule ^seolinks/bewerbungsbilder_deckblatt app/rendercontroller?id=146&%{QUERY_STRING} [L]
+RewriteRule ^seolinks/root app/rendercontroller?id=1&%{QUERY_STRING} [L]
 
-RewriteRule ^restapi/([^/]*)$ /api.php?&action=$1&%{QUERY_STRING} [L]
-RewriteRule ^restapi/([^/]*)/([^/]*)$ /api.php?&action=$1&param0=$2&%{QUERY_STRING} [L]
-RewriteRule ^restapi/([^/]*)/([^/]*)/([^/]*)$ /api.php?&action=$1&param0=$2&param1=$3&%{QUERY_STRING} [L]
-RewriteRule ^restapi/([^/]*)/([^/]*)/([^/]*)/([^/]*)$ /api.php?&action=$1&param0=$2&param1=$3&param2=$4&%{QUERY_STRING} [L]
-RewriteRule ^restapi/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)$ /api.php?&action=$1&param0=$2&param1=$3&param2=$4&param3=$5&%{QUERY_STRING} [L]
+RewriteRule ^app$ index.php?action=&%{QUERY_STRING} [L]
 
-RewriteRule ^backend$ /backend.php?&action=test&%{QUERY_STRING} [L]
+RewriteRule ^app/([^/]*)$ index.php?action=$1&%{QUERY_STRING} [L]
+RewriteRule ^app/([^/]*)/([^/]*)$ index.php?action=$1&param0=$2&%{QUERY_STRING} [L]
+RewriteRule ^app/([^/]*)/([^/]*)/([^/]*)$ index.php?action=$1&param0=$2&param1=$3&%{QUERY_STRING} [L]
+RewriteRule ^app/([^/]*)/([^/]*)/([^/]*)/([^/]*)$ index.php?action=$1&param0=$2&param1=$3&param2=$4&%{QUERY_STRING} [L]
+RewriteRule ^app/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)$ index.php?action=$1&param0=$2&param1=$3&param2=$4&param3=$5&%{QUERY_STRING} [L]
+
+RewriteRule ^restapi/([^/]*)$ api.php?action=$1&%{QUERY_STRING} [L]
+RewriteRule ^restapi/([^/]*)/([^/]*)$ api.php?action=$1&param0=$2&%{QUERY_STRING} [L]
+RewriteRule ^restapi/([^/]*)/([^/]*)/([^/]*)$ api.php?action=$1&param0=$2&param1=$3&%{QUERY_STRING} [L]
+RewriteRule ^restapi/([^/]*)/([^/]*)/([^/]*)/([^/]*)$ api.php?action=$1&param0=$2&param1=$3&param2=$4&%{QUERY_STRING} [L]
+RewriteRule ^restapi/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)$ api.php?action=$1&param0=$2&param1=$3&param2=$4&param3=$5&%{QUERY_STRING} [L]
+
+RewriteRule ^backend$ backend.php?action=test&%{QUERY_STRING} [L]
  
-RewriteRule ^backend/([^/]*)$ /backend.php?&action=$1&%{QUERY_STRING} [L]
-RewriteRule ^backend/([^/]*)/([^/]*)$ /backend.php?&action=$1&param0=$2&%{QUERY_STRING} [L]
-RewriteRule ^backend/([^/]*)/([^/]*)/([^/]*)$ /backend.php?&action=$1&param0=$2&param1=$3&%{QUERY_STRING} [L]
-RewriteRule ^backend/([^/]*)/([^/]*)/([^/]*)/([^/]*)$ /backend.php?&action=$1&param0=$2&param1=$3&param2=$4&%{QUERY_STRING} [L]
-RewriteRule ^backend/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)$ /backend.php?&action=$1&param0=$2&param1=$3&param2=$4&param3=$5&%{QUERY_STRING} [L]
+RewriteRule ^backend/([^/]*)$ backend.php?action=$1&%{QUERY_STRING} [L]
+RewriteRule ^backend/([^/]*)/([^/]*)$ backend.php?action=$1&param0=$2&%{QUERY_STRING} [L]
+RewriteRule ^backend/([^/]*)/([^/]*)/([^/]*)$ backend.php?action=$1&param0=$2&param1=$3&%{QUERY_STRING} [L]
+RewriteRule ^backend/([^/]*)/([^/]*)/([^/]*)/([^/]*)$ backend.php?action=$1&param0=$2&param1=$3&param2=$4&%{QUERY_STRING} [L]
+RewriteRule ^backend/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)$ backend.php?action=$1&param0=$2&param1=$3&param2=$4&param3=$5&%{QUERY_STRING} [L]
+
 
 
