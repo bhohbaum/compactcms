@@ -80,7 +80,7 @@ class ElementsTree extends CMVCController {
 			$viewstate = $this->redis->get("viewstate_" . $_COOKIE["PHPSESSID"]);
 			$this->redis->flushAll();
 			$this->redis->set("viewstate_" . $_COOKIE["PHPSESSID"], $viewstate);
-			$this->db->update_element($this->id_elements, $this->fk_id_element_types, $this->fk_id_parent_element, $this->ordinal, $this->position, $this->description);
+			$this->db->update_element($this->id_elements, $this->fk_id_element_types, $this->fk_id_parent_element, $this->ordinal, $this->position, strtolower(str_replace(" ", "_", $this->description)));
 			$this->run_page_logic_get();
 			return;
 		} else if ($this->param0 == "copysubtree") {
@@ -118,7 +118,7 @@ class ElementsTree extends CMVCController {
 		if ($tgt_parent == null) {
 			return;
 		}
-		$id = $this->db->add_element($src_parent["fk_id_element_types"], $tgt_parent["id_elements"], $src_parent["ordinal"], $src_parent["position"], $src_parent["description"]);
+		$id = $this->db->add_element($src_parent["fk_id_element_types"], $tgt_parent["id_elements"], $src_parent["ordinal"], $src_parent["position"], $src_parent["description"] . "-kopie");
 		$elem = $this->db->get_element_by_id($id);
 		$this->copy_element_data($src_parent, $elem);
 		$src_parent["subelements"] = $this->db->get_child_elements_by_pid($src_parent["id_elements"]);

@@ -33,7 +33,7 @@
 					</div>
 					<div>
 						<div style="float: left; width: 100px">Description:</div>
-						<input name="description" type=text value="<?= $e["description"] ?>" style="float: right; width: 280px" />
+						<input name="description" type=text value="<?= strtolower(str_replace(" ", "_", $e["description"])) ?>" style="float: right; width: 470px; margin-right: -190px" />
 					</div>
 				</div>
 			</div>
@@ -117,9 +117,11 @@ function restore_display() {
 }
 
 function delete_element(id) {
-	new $ajax().ok(function(result) {
-		location.href = "/backend/elementstree?json=0&id=<?= $this->get_value("id") ?>";
-	}).del("/backend/elementstree/delete/" + id);
+	if (confirm("Element " + id + " und alle Unterelemente löschen?")) {
+		new $ajax().ok(function(result) {
+			location.href = "/backend/elementstree?json=0&id=<?= $this->get_value("id") ?>";
+		}).del("/backend/elementstree/delete/" + id);
+	}
 	return false;
 }
 
