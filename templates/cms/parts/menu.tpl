@@ -11,18 +11,18 @@
 						</a>
 						<div class="nav-collapse nav-collapse_  collapse">
 							<ul class="nav sf-menu">
-								<li class="sub-menu"><a href="?id=23">Über uns</a></li>
-								<li class="sub-menu"><a href="?id=23">Service</a>
+								<li class="sub-menu"><a href="/seolinks/about">Über uns</a></li>
+								<li class="sub-menu"><a href="/seolinks/about">Service</a>
 									<ul>
-										<li><a href="/app/rendercontroller?id=46">Bewerbung</a></li>
-										<li><a href="/app/rendercontroller?id=47">Passfotos</a></li>
-										<li><a href="/app/rendercontroller?id=48">Hochzeiten</a></li>
-										<li><a href="/app/rendercontroller?id=49">Kinder und Familie</a></li>
-										<li><a href="/app/rendercontroller?id=116">Portrait</a></li>
+										<li><a href="/seolinks/bewerbungsbilder">Bewerbung</a></li>
+										<li><a href="/seolinks/passfotos">Passfotos</a></li>
+										<li><a href="/seolinks/hochzeiten">Hochzeiten</a></li>
+										<li><a href="/seolinks/kinder_und_familie">Kinder und Familie</a></li>
+										<li><a href="/seolinks/portrait">Portrait</a></li>
 									</ul>
 								</li>
-								<li class="sub-menu"><a href="?id=23">Aktuelles</a></li>
-								<li class="sub-menu"><a href="?id=23">Kontakt</a></li>
+								<li class="sub-menu"><a href="/seolinks/aktuelles">Aktuelles</a></li>
+								<li class="sub-menu"><a href="/seolinks/kontakt">Kontakt</a></li>
 							</ul>
 						</div>
 					</div>

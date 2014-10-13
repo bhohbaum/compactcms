@@ -3,7 +3,7 @@ RewriteEngine on
 RewriteBase /
 
 <?php foreach($this->get_value("elements") as $key => $val) { ?>
-RewriteRule ^seolinks/<?= str_replace(" ", "_", $val["description"]) ?> app/rendercontroller?id=<?= $val["id_elements"] ?>&%{QUERY_STRING} [L]
+RewriteRule ^seolinks/<?= strtolower(str_replace(" ", "_", $val["description"])) ?>$ app/rendercontroller?id=<?= $val["id_elements"] ?>&%{QUERY_STRING} [L]
 <?php } ?>
 
 RewriteRule ^app$ index.php?action=&%{QUERY_STRING} [L]
