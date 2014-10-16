@@ -28,9 +28,15 @@ class SeoLinks extends CMVCController {
 	protected function run_page_logic_get() {
 		DLOG(__METHOD__);
 		$elements = $this->db->get_pages();
+		foreach ($elements as $elem) {
+			if ($elem["fk_id_parent_element"] == null) {
+				$data = $this->db->get_element_data_by_element_id_and_type_name($id, ROOT_ELEM_DATA_KEY, true);
+			}
+		}
 		$htview = new View();
 		$htview->add_template("htaccess.tpl");
 		$htview->set_value("elements", $elements);
+		$htview->set_value(ROOT_ELEM_DATA_KEY, $data->data);
 		file_put_contents(".htaccess", $htview->render(false));
 		$this->json_response(true);
 	}

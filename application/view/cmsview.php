@@ -62,9 +62,9 @@ class CMSView extends View {
 		if ($e->fk_id_parent_element != null) {
 			$t = $this->db->get_element_type_by_id($this->db->get_element_by_id($e->fk_id_parent_element, true)->fk_id_element_types);
 		} else {
-			$t["description"] = "NOT_" . ROOT_ELEM_DESC;
+			$t["description"] = "NOT_" . ROOT_ELEM_TYPE_DESC;
 		}
-		if (($elem->is_page == "0") || ($this->root) || ($t["description"] == ROOT_ELEM_DESC)) {
+		if (($elem->is_page == "0") || ($this->root) || ($t["description"] == ROOT_ELEM_TYPE_DESC)) {
 			$res = parent::render($caching);
 		} else {
 			$res = "";
