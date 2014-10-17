@@ -30,7 +30,7 @@ class SeoLinks extends CMVCController {
 		$elements = $this->db->get_pages();
 		foreach ($elements as $elem) {
 			if ($elem["fk_id_parent_element"] == null) {
-				$data = $this->db->get_element_data_by_element_id_and_type_name($id, ROOT_ELEM_DATA_KEY, true);
+				$data = $this->db->get_element_data_by_element_id_and_type_name($elem["id_elements"], ROOT_ELEM_DATA_KEY, true);
 			}
 		}
 		$htview = new View();

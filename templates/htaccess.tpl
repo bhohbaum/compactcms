@@ -3,7 +3,7 @@ RewriteEngine on
 RewriteBase /
 
 <?php if ($this->get_value(ROOT_ELEM_DATA_KEY) != null)  { ?>
-RewriteRule / app/rendercontroller?id=<?= $this->get_value(ROOT_ELEM_DATA_KEY) ?>&%{QUERY_STRING} [L]
+RewriteRule ^$ <?= $this->get_value(ROOT_ELEM_DATA_KEY) ?>?%{QUERY_STRING} [L]
 <?php } ?>
 <?php foreach($this->get_value("elements") as $key => $val) { ?>
 RewriteRule ^seolinks/<?= strtolower(str_replace(" ", "_", $val["description"])) ?>$ app/rendercontroller?id=<?= $val["id_elements"] ?>&%{QUERY_STRING} [L]

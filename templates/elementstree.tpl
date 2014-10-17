@@ -1,5 +1,7 @@
 <div style="margin: 20px;">
-	<button onclick="generate_seo_links()">Generate SEO links</button>
+	<button onclick="generate_seo_links()" style="margin-right: 20px">Generate SEO links</button>
+	<button onclick="expand_all()" style="margin-right: 20px">Expand all</button>
+	<button onclick="collapse_all()" style="margin-right: 20px">Collapse all</button>
 </div>
 
 <?php function print_element_tree($e, $l, $t, $i) { 
@@ -188,6 +190,24 @@ function generate_seo_links() {
 		});
 	}).get("/backend/seolinks/generate/");
 	return false;
+}
+
+function expand_all() {
+	$(".subelem_display").each(function() {
+		$(this).val(1);
+		$('#subelems_' + parseInt($(this).attr("id"))).show();
+		$('#subelems_plh_' + parseInt($(this).attr("id"))).hide();
+		$('#subelems_btn_' + parseInt($(this).attr("id"))).show();
+	});
+}
+
+function collapse_all() {
+	$(".subelem_display").each(function() {
+		$(this).val(0);
+		$('#subelems_' + parseInt($(this).attr("id"))).hide();
+		$('#subelems_plh_' + parseInt($(this).attr("id"))).show();
+		$('#subelems_btn_' + parseInt($(this).attr("id"))).hide();
+	});
 }
 
 restore_display();
