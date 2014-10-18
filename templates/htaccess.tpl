@@ -2,6 +2,8 @@ RewriteEngine on
 
 RewriteBase /
 
+RewriteRule ^backend$ /backend/elementstree?json=0&id=<?= $this->get_value("rootelemid") ?>&%{QUERY_STRING} [L]
+
 <?php if ($this->get_value(ROOT_ELEM_DATA_KEY) != null)  { ?>
 RewriteRule ^$ <?= $this->get_value(ROOT_ELEM_DATA_KEY) ?>?%{QUERY_STRING} [L]
 <?php } ?>

@@ -42,6 +42,7 @@
 			<div style="float: right; margin: 1px; width: 160px">
 				<input id="submitbtn" type="button" onclick="save_display(function(){document.forms['pgtreeform_<?= $e["id_elements"] ?>'].submit();})" value="Save" />
 				<button onclick="delete_element(<?= $e["id_elements"] ?>); return false;">Delete</button>
+				<button onclick="delete_element(<?= $e["id_elements"] ?>); return false;">+</button>
 				<button onclick="window.open('/backend/addelement?id=<?= $e["id_elements"] ?>'); return false;">New</button>
 				<button onclick="window.open('/backend/elemdataeditor?id=<?= $e["id_elements"] ?>'); return false;">Edit data</button>
 				<?php if (count($e["subelements"]) > 0) { ?>
@@ -195,19 +196,21 @@ function generate_seo_links() {
 function expand_all() {
 	$(".subelem_display").each(function() {
 		$(this).val(1);
-		$('#subelems_' + parseInt($(this).attr("id"))).show();
-		$('#subelems_plh_' + parseInt($(this).attr("id"))).hide();
-		$('#subelems_btn_' + parseInt($(this).attr("id"))).show();
+		$('#subelems_' + parseInt($(this).attr("id"))).show(1000);
+		$('#subelems_plh_' + parseInt($(this).attr("id"))).hide(1000);
+		$('#subelems_btn_' + parseInt($(this).attr("id"))).show(1000);
 	});
+	save_display();
 }
 
 function collapse_all() {
 	$(".subelem_display").each(function() {
 		$(this).val(0);
-		$('#subelems_' + parseInt($(this).attr("id"))).hide();
-		$('#subelems_plh_' + parseInt($(this).attr("id"))).show();
-		$('#subelems_btn_' + parseInt($(this).attr("id"))).hide();
+		$('#subelems_' + parseInt($(this).attr("id"))).hide(1000);
+		$('#subelems_plh_' + parseInt($(this).attr("id"))).show(1000);
+		$('#subelems_btn_' + parseInt($(this).attr("id"))).hide(1000);
 	});
+	save_display();
 }
 
 restore_display();

@@ -31,11 +31,13 @@ class SeoLinks extends CMVCController {
 		foreach ($elements as $elem) {
 			if ($elem["fk_id_parent_element"] == null) {
 				$data = $this->db->get_element_data_by_element_id_and_type_name($elem["id_elements"], ROOT_ELEM_DATA_KEY, true);
+				$rootelem = $elem;
 			}
 		}
 		$htview = new View();
 		$htview->add_template("htaccess.tpl");
 		$htview->set_value("elements", $elements);
+		$htview->set_value("rootelemid", $rootelem["id_elements"]);
 		$htview->set_value(ROOT_ELEM_DATA_KEY, $data->data);
 		file_put_contents(".htaccess", $htview->render(false));
 		$this->json_response(true);
