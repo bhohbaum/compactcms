@@ -6,7 +6,7 @@
 <form method="post">
 	<?php foreach ($this->get_value("edtypes") as $idx => $edtype)  { $edata = $this->get_value("edata"); $edata = $edata[$idx] ?>
 		<label><?= $edtype["name"] ?></label>
-		<textarea name="<?= $edtype["name"] ?>" rows="5" cols="80"><?= $edata["data"] ?></textarea>
+		<textarea name="<?= $edtype["name"] ?>" rows="5" cols="80"><?= UTF8::encode($edata["data"]) ?></textarea>
 		<br />
 	<?php } ?>
 	<input name="id" type="hidden" value="<?= $this->get_value("id") ?>" />

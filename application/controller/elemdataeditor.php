@@ -47,7 +47,7 @@ class ElemDataEditor extends CMVCController {
 	protected function run_page_logic_post() {
 		$this->run_page_logic_delete();
 		foreach ($this->edtypes as $key => $val) {
-			$this->db->add_element_data($val["id_element_data_types"], $this->id, "null", $this->request($val["name"]));
+			$this->db->add_element_data($val["id_element_data_types"], $this->id, "null", UTF8::encode($this->request($val["name"])));
 		}
 		foreach ($this->edtypes as $idx => $edtype) {
 			$this->edata[$idx] = $this->db->get_element_data_by_element_id_and_type_name($this->id, $edtype["name"]);

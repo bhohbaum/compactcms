@@ -53,7 +53,7 @@ class CMSView extends View {
 		if (!array_key_exists($tname, $this->dataarr)) {
 			$this->dataarr[$tname] = $this->db->get_element_data_by_element_id_and_type_name($this->id, $tname, true);
 		}
-		return $this->dataarr[$tname]->data;
+		return UTF8::encode($this->dataarr[$tname]->data);
 	}
 	
 	public function render($caching = true) {

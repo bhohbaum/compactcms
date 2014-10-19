@@ -5,7 +5,7 @@ RewriteBase /
 RewriteRule ^backend$ /backend/elementstree?json=0&id=<?= $this->get_value("rootelemid") ?>&%{QUERY_STRING} [L]
 
 <?php if ($this->get_value(ROOT_ELEM_DATA_KEY) != null)  { ?>
-RewriteRule ^$ <?= $this->get_value(ROOT_ELEM_DATA_KEY) ?>?%{QUERY_STRING} [L]
+RewriteRule ^$ <?= $this->get_value(ROOT_ELEM_DATA_KEY) ?>?%{QUERY_STRING}
 <?php } ?>
 <?php foreach($this->get_value("elements") as $key => $val) { ?>
 RewriteRule ^seolinks/<?= strtolower(str_replace(" ", "_", $val["description"])) ?>$ app/rendercontroller?id=<?= $val["id_elements"] ?>&%{QUERY_STRING} [L]

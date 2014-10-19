@@ -42,7 +42,7 @@
 			<div style="float: right; margin: 1px; width: 160px">
 				<input id="submitbtn" type="button" onclick="save_display(function(){document.forms['pgtreeform_<?= $e["id_elements"] ?>'].submit();})" value="Save" />
 				<button onclick="delete_element(<?= $e["id_elements"] ?>); return false;">Delete</button>
-				<button onclick="delete_element(<?= $e["id_elements"] ?>); return false;">+</button>
+				<button onclick="return false;">+</button>
 				<button onclick="window.open('/backend/addelement?id=<?= $e["id_elements"] ?>'); return false;">New</button>
 				<button onclick="window.open('/backend/elemdataeditor?id=<?= $e["id_elements"] ?>'); return false;">Edit data</button>
 				<?php if (count($e["subelements"]) > 0) { ?>
@@ -121,22 +121,26 @@ function restore_display() {
 
 function delete_element(id) {
 	if (confirm("Element " + id + " und alle Unterelemente löschen?")) {
-		new $ajax().ok(function(result) {
-			location.href = "/backend/elementstree?json=0&id=<?= $this->get_value("id") ?>";
-		}).del("/backend/elementstree/delete/" + id);
+		save_display(function(){
+			new $ajax().ok(function(result) {
+				location.href = "/backend/elementstree?json=0&id=<?= $this->get_value("id") ?>";
+			}).del("/backend/elementstree/delete/" + id);
+		});
 	}
 	return false;
 }
 
 function copy_subtree(id) {
 	var newParent = parseInt($("#new_fk_id_parent_element_" + id).val());
-	new $ajax().ok(function(result) {
-		result = JSON.parse(result);
-		console.log(result);
-		save_display(function(){ 
-			location.href = "/backend/elementstree?json=0&id=<?= $this->get_value("id") ?>"; 
-		});
-	}).data("&id=" + id + "&fk_id_parent_element=" + newParent).post("/backend/elementstree/copysubtree/");
+	save_display(function(){
+		new $ajax().ok(function(result) {
+			result = JSON.parse(result);
+			console.log(result);
+			save_display(function(){ 
+				location.href = "/backend/elementstree?json=0&id=<?= $this->get_value("id") ?>"; 
+			});
+		}).data("&id=" + id + "&fk_id_parent_element=" + newParent).post("/backend/elementstree/copysubtree/");
+	});
 	return false;
 }
 

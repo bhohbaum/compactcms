@@ -4,7 +4,7 @@ RewriteBase /
 
 RewriteRule ^backend$ /backend/elementstree?json=0&id=1&%{QUERY_STRING} [L]
 
-RewriteRule ^$ /seolinks/about?%{QUERY_STRING} [L]
+RewriteRule ^$ seolinks/about?%{QUERY_STRING}
 RewriteRule ^seolinks/about$ app/rendercontroller?id=23&%{QUERY_STRING} [L]
 RewriteRule ^seolinks/service$ app/rendercontroller?id=42&%{QUERY_STRING} [L]
 RewriteRule ^seolinks/aktuelles$ app/rendercontroller?id=43&%{QUERY_STRING} [L]
