@@ -2,7 +2,9 @@
 <li class="span3">
 	<div class="thumbnail thumbnail-1">
 		<h3><?= $this->data("title") ?></h3>
-		<img src="<?= $this->data("src") ?>" alt="">
+		<a href="<?= $this->data("href") ?>">
+			<img src="<?= $this->data("src") ?>" alt="">
+		</a>
 		<section>
 			<strong><?= $this->data("subtitle") ?></strong>
 			<p><?= $this->data("text") ?></p>

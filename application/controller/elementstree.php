@@ -84,6 +84,9 @@ class ElementsTree extends CMVCController {
 			$this->run_page_logic_get();
 			return;
 		} else if ($this->param0 == "copysubtree") {
+			$viewstate = $this->redis->get("viewstate_" . $_COOKIE["PHPSESSID"]);
+			$this->redis->flushAll();
+			$this->redis->set("viewstate_" . $_COOKIE["PHPSESSID"], $viewstate);
 			$src_parent = $this->db->get_element_by_id($this->id);
 			$tgt_parent = $this->db->get_element_by_id($this->fk_id_parent_element);
 			$this->copy_subtree($src_parent, $tgt_parent);
