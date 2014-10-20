@@ -12,7 +12,9 @@
 	<br />
 	<select name="fk_id_element_types" size="1">
 		<?php foreach ($this->get_value("etypes") as $key => $val) { ?>
-			<option value="<?= $val["id_element_types"] ?>"><?= $val["description"] ?></option>
+			<option value="<?= $val["id_element_types"] ?>">
+				<?= $val["is_page"] ? "Page: " : "Elem: " ?> <?= $val["description"] ?>
+			</option>
 		<?php } ?>
 	</select>
 	<br />

@@ -69,7 +69,7 @@ class BackendDBA extends CMSDBA {
 	public function get_element_types($obj = false) {
 		$q = "SELECT	*
 				FROM	element_types
-			ORDER BY	description ASC";
+			ORDER BY	is_page DESC, description ASC";
 		return $this->run_query($q, true, $obj);
 	}
 

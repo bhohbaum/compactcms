@@ -21,7 +21,9 @@
 						<div style="float: left; width: 100px">Element type:</div>
 						<select name="fk_id_element_types" size="1" style="float: right; width: 280px">
 							<?php foreach ($t as $key => $val) { ?>
-								<option value="<?= $val["id_element_types"] ?>" <?= ($e["fk_id_element_types"]["id_element_types"] == $val["id_element_types"]) ? "selected" : "" ?>><?= $val["description"] ?></option>
+								<option value="<?= $val["id_element_types"] ?>" <?= ($e["fk_id_element_types"]["id_element_types"] == $val["id_element_types"]) ? "selected" : "" ?>>
+									<?= $val["is_page"] ? "Page: " : "Elem: " ?> <?= $val["description"] ?>
+								</option>
 							<?php } ?>
 						</select>
 					</div>
