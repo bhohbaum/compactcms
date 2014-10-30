@@ -240,6 +240,7 @@ function collapse_all() {
 $( "button" ).click(function(event) {
 	event.preventDefault();
 });
+
 restore_display();
 
 </script>
