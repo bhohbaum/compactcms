@@ -29,6 +29,9 @@ define("MYSQL_PASS", "Mausi_303");
 
 define("DBA_DEFAULT_CLASS", "DBA");
 
+// Register GET/POST/PUT variables as members in the controllers
+define('REGISTER_HTTP_VARS', true);
+
 // Further constants to be set at installation time
 define('UPLOAD_BASE_DIR', './files/upload');				// relative to $_SERVER['DOCUMENT_ROOT']
 define('IMAGES_BASE_DIR', './files/images');				// relative to $_SERVER['DOCUMENT_ROOT']

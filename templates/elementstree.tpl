@@ -1,8 +1,9 @@
-<div style="background-color: #FEDDCC">
-	<button onclick="generate_seo_links()" style="margin: 20px">Generate SEO links</button>
+<div style="background-color: #FEDDCC; position: fixed; margin-left: 50%; width: 50%">
+	<button onclick="goto_templateeditor()" style="margin: 20px">Template Editor</button>
 	<button onclick="expand_all()" style="margin: 20px">Expand all</button>
 	<button onclick="collapse_all()" style="margin: 20px">Collapse all</button>
 </div>
+<div style="width: 100%; marging-top: 180px; background-color: #FFFFEC"><br/><br/><br/><br/></div>
 <div style="background-color: #FFFFEC">
 	<?php function print_element_tree($e, $l, $t, $i) { 
 		$color = ($e["fk_id_parent_element"] != null) ? "#CCFFDD" : "#FFCCDD" ;?>
@@ -80,6 +81,7 @@
 		<?php } ?>
 		<?php } ?>
 	<?php print_element_tree($this->get_value("etree"), 0, $this->get_value("etypes"), $this->get_value("id")); ?>
+</div>
 </div>
 <script type="text/javascript">
 
@@ -206,13 +208,15 @@ function setScrollXY(scr) {
 	return [scrX, scrY];
 }
 
-function generate_seo_links() {
+function generate_seo_links(url) {
 	new $ajax().ok(function(result) {
 		result = JSON.parse(result);
 		console.log(result);
-		save_display(function(){ 
-			location.href = "/backend/elementstree?json=0&id=<?= $this->get_value("id") ?>"; 
-		});
+		if (url) {
+			save_display(function(){ 
+				location.href = url;
+			});
+		}
 	}).get("/backend/seolinks/generate/");
 	return false;
 }
@@ -237,10 +241,17 @@ function collapse_all() {
 	save_display();
 }
 
+function goto_templateeditor() {
+	save_display(function() {
+		location.href = "/backend/templateeditor";
+	});
+}
+
 $( "button" ).click(function(event) {
 	event.preventDefault();
 });
 
 restore_display();
+generate_seo_links();
 
 </script>

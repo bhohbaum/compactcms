@@ -13,6 +13,7 @@ LIBCOMPACTMVC_ENTRY;
  */
 abstract class CMVCController {
 	private $ob;
+	private $data;
 	private static $request_data;
 	private static $request_data_raw;
 	public $view;
@@ -81,7 +82,8 @@ abstract class CMVCController {
 
 	/**
 	 * Exception handler
-	 * @param Exception $e
+	 * 
+	 * @param Exception $e        	
 	 */
 	protected function exception_handler($e) {
 		DLOG(__METHOD__);
@@ -89,7 +91,7 @@ abstract class CMVCController {
 	}
 
 	public function __construct() {
-// 		$this->view = View::instance();
+		// $this->view = View::instance();
 		$this->view = new View();
 		$this->log = new Log(Log::LOG_TYPE_FILE);
 		$this->log->set_log_file(LOG_FILE);
@@ -272,6 +274,7 @@ abstract class CMVCController {
 		DLOG(var_export($_REQUEST, true));
 		$this->redirect = "";
 		$this->db = DbAccess::get_instance($this->dba());
+// 		$this->populate_members();
 		if (!isset($this->view)) {
 			$this->view = new View();
 		}
@@ -314,13 +317,15 @@ abstract class CMVCController {
 			$this->ob = $this->view->render();
 		}
 	}
-	
+
 	/**
 	 * Run the exception handler method
-	 * @param Exception $e the exception
+	 * 
+	 * @param Exception $e
+	 *        	the exception
 	 */
 	public function run_exception_handler($e) {
-		DLOG(__METHOD__ . " Exception ".$e->getCode()." '" . $e->getMessage() . "'");
+		DLOG(__METHOD__ . " Exception " . $e->getCode() . " '" . $e->getMessage() . "'");
 		$this->exception_handler($e);
 		$this->ob = $this->view->render();
 	}
@@ -328,6 +333,27 @@ abstract class CMVCController {
 	public function get_ob() {
 		DLOG(__METHOD__);
 		return $this->ob;
+	}
+
+	public function __get($var_name) {
+		if (!array_key_exists($var_name, $this->data)) {
+			$stack = debug_backtrace();
+			throw new Exception('Member not defined: '.get_class($this).'::'.$var_name.' in "'.$stack[0]["file"].'" on line '.$stack[0]["line"]);
+		} else {
+			return $this->data[$var_name];
+		}
+	}
+
+	public function __set($var_name, $value) {
+		$this->data[$var_name] = $value;
+	}
+
+	protected function populate_members() {
+		if (REGISTER_HTTP_VARS) {
+			foreach (array_keys($this->request(null)) as $key) {
+				$this->{$key} = $this->request($key);
+			}
+		}
 	}
 
 

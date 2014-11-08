@@ -30,6 +30,7 @@ class Main {
 		$this->ad->set_handler("elemdataeditor",	"ElemDataEditor");
 		$this->ad->set_handler("elementstree", 		"ElementsTree");
 		$this->ad->set_handler("seolinks", 			"SeoLinks");
+		$this->ad->set_handler("templateeditor",	"TemplateEditor");
 		$this->ad->set_default("login");
 //		$this->ad->set_control("control");
 		$this->ad->run();
