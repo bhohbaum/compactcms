@@ -45,6 +45,12 @@ class CMSDBA extends DbAccess {
 		return $this->run_query($q, false, $obj);
 	}
 
+	public function get_element_types($obj = false) {
+		$q = "SELECT	*
+				FROM	element_types";
+		return $this->run_query($q, true, $obj);
+	}
+
 	public function get_element_data_by_element_id($id, $obj = false) {
 		$q = "SELECT	*
 				FROM	element_data

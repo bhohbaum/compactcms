@@ -66,6 +66,12 @@ class BackendDBA extends CMSDBA {
 		return $this->run_query($q, true, $obj);
 	}
 
+	public function get_element_data_types($obj = false) {
+        $q = "SELECT	*
+				FROM	element_data_types";
+		return $this->run_query($q, true, $obj);
+	}
+	
 	public function get_element_types($obj = false) {
 		$q = "SELECT	*
 				FROM	element_types

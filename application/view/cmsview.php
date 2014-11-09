@@ -42,7 +42,7 @@ class CMSView extends View {
 			$subview->set_id($child->id_elements);
 			$elem = $this->db->get_element_type_by_id($this->db->get_element_by_id($child->id_elements, true)->fk_id_element_types, true);
 			if (($elem->is_page == "0") || ($this->root)) {
-				$subview->add_template("cms/parts/" . $elem->template);
+				$subview->add_template("cms/" . $elem->template);
 				$this->subparts[$position] .= $subview->render(false);
 			}
 		}
