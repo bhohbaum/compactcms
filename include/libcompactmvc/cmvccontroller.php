@@ -13,7 +13,7 @@ LIBCOMPACTMVC_ENTRY;
  */
 abstract class CMVCController {
 	private $ob;
-	private $data;
+	private $member_variables;
 	private static $request_data;
 	private static $request_data_raw;
 	public $view;
@@ -336,16 +336,16 @@ abstract class CMVCController {
 	}
 
 	public function __get($var_name) {
-		if (!array_key_exists($var_name, $this->data)) {
+		if (!array_key_exists($var_name, $this->member_variables)) {
 			$stack = debug_backtrace();
 			throw new Exception('Member not defined: '.get_class($this).'::'.$var_name.' in "'.$stack[0]["file"].'" on line '.$stack[0]["line"]);
 		} else {
-			return $this->data[$var_name];
+			return $this->member_variables[$var_name];
 		}
 	}
 
 	public function __set($var_name, $value) {
-		$this->data[$var_name] = $value;
+		$this->member_variables[$var_name] = $value;
 	}
 
 	protected function populate_members() {

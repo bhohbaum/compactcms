@@ -96,7 +96,7 @@ var $ajax = function() {
 		xhr.responseType = this._responseType;
 		xhr.onload = function(response) {
 			new $ajax()._callHandler(url, response, new $ajax()._response(response));
-			$_ajax[url]._cfg[url] = null;
+//			$_ajax[url]._cfg[url] = null;
 		};
 		this._cfg[url] = [];
 		this._cfg[url].cbok = this._cbok;
@@ -129,7 +129,7 @@ $(document).ready(function() {
 					var cmd = 'var data = element.' + element.attr("data-" + event.type);
 					try {
 						eval(cmd);
-						var rnd = (int)(Math.random() * 1000000);
+						var rnd = Math.round(Math.random() * 1000000);
 						new $ajax().data("&data=" + escape(data)).ok(function(result) {
 							var cmd = 'element.' + content;
 							try {
@@ -144,7 +144,7 @@ $(document).ready(function() {
 				});
 			}
 		}
-		var rnd = (int)(Math.random() * 1000000);
+		var rnd = Math.round(Math.random() * 1000000);
 		new $ajax().ok(function(result) {
 			var cmd = 'element.' + content;
 			try {

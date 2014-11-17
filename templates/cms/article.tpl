@@ -6,7 +6,7 @@
 				<div class="clear"></div> <img alt="" src="<?= $this->data("src") ?>">
 				<p>
 					<?= $this->data("text") ?>
-				</p> 
+				</p>
 			</li>
 		</ul>
 	</div>

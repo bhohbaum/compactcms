@@ -137,6 +137,13 @@ abstract class DbAccess {
 			throw new Exception(__METHOD__." MySQLi error: ".$this->mysqli->error);
 		}
 	}
+	
+	protected function escape($str) {
+		if ($this->mysqli) {
+			return $this->mysqli->real_escape_string($str);
+		}
+		throw new Exception("DbAccess::mysqli is not initialized, unable to escape string.");
+	}
 		
 }
 

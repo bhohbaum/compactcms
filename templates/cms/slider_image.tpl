@@ -1,1 +1,3 @@
-<li><img src="<?= $this->data("src") ?>" alt=""></li>
+<li>
+    <img src="<?= $this->data("src") ?>" alt="">
+</li>

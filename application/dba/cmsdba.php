@@ -24,7 +24,7 @@ class CMSDBA extends DbAccess {
 		}
 		$q = "SELECT	*
 				FROM	elements
-				WHERE	id_elements = " . $this->mysqli->real_escape_string($id) . "
+				WHERE	id_elements = " . $this->escape($id) . "
 			ORDER BY	position, ordinal ASC";
 		return $this->run_query($q, false, $obj);
 	}
@@ -32,8 +32,8 @@ class CMSDBA extends DbAccess {
 	public function get_element_by_pid_and_position($pid, $pos, $obj = false) {
 		$q = "SELECT	*
 				FROM	elements
-				WHERE	fk_id_parent_element = " . $this->mysqli->real_escape_string($pid) . "
-				AND		position = " . $this->mysqli->real_escape_string($pos) . "
+				WHERE	fk_id_parent_element = " . $this->escape($pid) . "
+				AND		position = " . $this->escape($pos) . "
 			ORDER BY	ordinal ASC";
 		return $this->run_query($q, true, $obj);
 	}
@@ -41,7 +41,7 @@ class CMSDBA extends DbAccess {
 	public function get_element_type_by_id($id, $obj = false) {
 		$q = "SELECT	*
 				FROM	element_types
-				WHERE	id_element_types = " . $this->mysqli->real_escape_string($id);
+				WHERE	id_element_types = " . $this->escape($id);
 		return $this->run_query($q, false, $obj);
 	}
 
@@ -54,7 +54,7 @@ class CMSDBA extends DbAccess {
 	public function get_element_data_by_element_id($id, $obj = false) {
 		$q = "SELECT	*
 				FROM	element_data
-				WHERE	id_element_data = " . $this->mysqli->real_escape_string($id);
+				WHERE	id_element_data = " . $this->escape($id);
 		return $this->run_query($q, false, $obj);
 	}
 
@@ -65,8 +65,8 @@ class CMSDBA extends DbAccess {
 				ON		element_data.fk_id_element_data_types = element_data_types.id_element_data_types
 			INNER JOIN	elements
 				ON		element_data.fk_id_elements = elements.id_elements
-				WHERE	elements.id_elements = " . $this->mysqli->real_escape_string($id) . "
-				AND		element_data_types.name = '" . $this->mysqli->real_escape_string($type_name) . "'";
+				WHERE	elements.id_elements = " . $this->escape($id) . "
+				AND		element_data_types.name = '" . $this->escape($type_name) . "'";
 		return $this->run_query($q, false, $obj);
 	}
 
