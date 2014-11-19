@@ -235,12 +235,6 @@
 			}).data("&fieldid=" + id + "&tplid=" + get_selected_template()).post("/backend/templateeditor/unusedata");
 		}
 
-		function del_data_elem(id) {
-			new $ajax().ok(function(result) {
-				load_tpldata(get_selected_template());
-			}).del("/backend/templateeditor/templatedata/" + id);
-		}
-
 		$("button").click(function(event) {
 			event.preventDefault();
 		});
