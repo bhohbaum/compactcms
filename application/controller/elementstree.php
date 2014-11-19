@@ -106,7 +106,7 @@ class ElementsTree extends CMVCController {
 
 	private function add_sub_elements(&$parent) {
 		if ($parent != null) {
-			$parent["fk_id_element_types"] = $this->db->get_element_type_by_id($parent["fk_id_element_types"]);
+			$parent["fk_id_element_types"] = $this->db->get_element_types_by_id($parent["fk_id_element_types"]);
 		}
 		$parent["subelements"] = $this->db->get_child_elements_by_pid($parent["id_elements"]);
 		foreach ($parent["subelements"] as $idx => $element) {

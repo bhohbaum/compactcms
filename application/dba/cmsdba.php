@@ -38,7 +38,22 @@ class CMSDBA extends DbAccess {
 		return $this->run_query($q, true, $obj);
 	}
 
-	public function get_element_type_by_id($id, $obj = false) {
+	public function get_element_types($obj = false) {
+		$q = "SELECT	*
+				FROM	element_types
+			ORDER BY	is_page DESC, description ASC";
+		return $this->run_query($q, true, $obj);
+	}
+
+	public function get_element_types_by_id($id, $obj = false) {
+		$q = "SELECT	*
+				FROM	element_types
+				WHERE	id_element_types = " . $this->escape($id);
+		return $this->run_query($q, false, $obj);
+	}
+
+	/*
+	public function get_element_types_by_id($id, $obj = false) {
 		$q = "SELECT	*
 				FROM	element_types
 				WHERE	id_element_types = " . $this->escape($id);
@@ -50,6 +65,7 @@ class CMSDBA extends DbAccess {
 				FROM	element_types";
 		return $this->run_query($q, true, $obj);
 	}
+	*/
 
 	public function get_element_data_by_element_id($id, $obj = false) {
 		$q = "SELECT	*

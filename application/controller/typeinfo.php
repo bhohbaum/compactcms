@@ -24,7 +24,7 @@ class TypeInfo extends CMVCController {
 
 	protected function run_page_logic() {
 		DLOG(__METHOD__);
-		$etype = $this->db->get_element_type_by_id($this->id);
+		$etype = $this->db->get_element_types_by_id($this->id);
 	}
 
 

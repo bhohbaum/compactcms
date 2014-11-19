@@ -1,3 +1,4 @@
+
 <li class="span3">
 	<div class="thumbnail thumbnail-1">
 		<h3><?= $this->data("title") ?></h3>

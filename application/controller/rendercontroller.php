@@ -31,7 +31,7 @@ class RenderController extends CMVCController {
 		DLOG(__METHOD__);
 		$this->cmsview->set_id($this->id);
 		$this->cmsview->set_root(true);
-		$this->cmsview->add_template("cms/" . $this->db->get_element_type_by_id($this->db->get_element_by_id($this->id, true)->fk_id_element_types, true)->template);
+		$this->cmsview->add_template("cms/" . $this->db->get_element_types_by_id($this->db->get_element_by_id($this->id, true)->fk_id_element_types, true)->template);
 		$this->binary_response($this->cmsview->render());
 	}
 

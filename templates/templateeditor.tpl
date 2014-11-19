@@ -202,6 +202,24 @@
 			}
 		}
 
+		function delete_template_data(id) {
+			var msg = "Do you really want to delete the template data field?";
+			if (confirm(msg)) {
+// 				last_del_id = id;
+				new $ajax().ok(function(result) {
+					console.log(result);
+					load_tpllist(function() {
+						load_all_tpl_data(get_selected_template());
+					});
+				}).err(function(result) {
+					console.log(result);
+					load_tpllist(function() {
+						load_all_tpl_data(get_selected_template());
+					});
+				}).del("/backend/templateeditor/templatedata/" + id);
+			}
+		}
+
 		function add_data_elem(id) {
 			new $ajax().ok(function(result) {
 				load_tpldata(get_selected_template());
@@ -254,6 +272,7 @@
 				<?php foreach ($this->get_value("unused") as $nu) { ?>
 					<div onclick="add_data_elem(<?= $nu->id_element_data_types ?>)" style="padding-left: 13px; padding-right: 13px; height: 50px; border-style: solid; border-color: black; border-width: 1px;">
 						<p>
+							<button onclick="delete_template_data(<?= $nu->id_element_data_types ?>); return false;">X</button>
 							<?= $nu->name ?>
 						</p>
 					</div>

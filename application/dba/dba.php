@@ -358,6 +358,7 @@ class DBA extends DbAccess {
 	}
 	
 	// ======================================================================================================================================================
+	/*
 	public function get_element_by_id($id, $obj = false) {
 		$q = "SELECT	*
 				FROM	elements
@@ -371,6 +372,7 @@ class DBA extends DbAccess {
 				WHERE	id = " . $this->escape($id);
 		return $this->run_query($q, false, $obj);
 	}
+	*/
 
 
 }

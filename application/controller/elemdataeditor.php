@@ -25,7 +25,7 @@ class ElemDataEditor extends CMVCController {
 		DLOG(__METHOD__);
 		$this->id = $this->request("id");
 		$this->element = $this->db->get_element_by_id($this->id);
-		$this->etype = $this->db->get_element_type_by_id($this->element["fk_id_element_types"]);
+		$this->etype = $this->db->get_element_types_by_id($this->element["fk_id_element_types"]);
 		$this->edtypes = $this->db->get_element_data_types_by_element_id($this->id);
 		foreach ($this->edtypes as $idx => $edtype) {
 			$this->edata[$idx] = $this->db->get_element_data_by_element_id_and_type_name($this->id, $edtype["name"]);
@@ -39,7 +39,7 @@ class ElemDataEditor extends CMVCController {
 		$this->view->set_value("id", $this->id);
 		$this->view->set_value("edtypes", $this->edtypes);
 		$this->view->set_value("edata", $this->edata);
-		$template = file_get_contents("./templates/cms/" . $this->db->get_element_type_by_id($this->element["fk_id_element_types"], true)->template);
+		$template = file_get_contents("./templates/cms/" . $this->db->get_element_types_by_id($this->element["fk_id_element_types"], true)->template);
 		$this->view->set_value("template", nl2br(str_replace("	", "&nbsp;&nbsp;&nbsp;&nbsp;", str_replace(" ", "&nbsp;", htmlentities($template)))));
 	}
 
