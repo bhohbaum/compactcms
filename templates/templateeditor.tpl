@@ -88,6 +88,9 @@
 				console.log(result);
 				if (result) {
 					$("#tpldata").html(result);
+					$("button").click(function(event) {
+						event.preventDefault();
+					});
 				}
 			}).get("/backend/templateeditor/tpldata/" + id);
 			new $ajax().ok(function(result) {
@@ -196,7 +199,7 @@
 				}).err(function(result) {
 					console.log(result);
 					load_tpllist(function() {
-						load_all_tpl_data(get_selected_template());
+// 						load_all_tpl_data(get_selected_template());
 					});
 				}).del("/backend/templateeditor/template/" + id);
 			}

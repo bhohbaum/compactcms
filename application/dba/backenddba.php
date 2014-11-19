@@ -143,6 +143,12 @@ class BackendDBA extends CMSDBA {
 		return $this->run_query($q, false);
 	}
 	
+	public function delete_element_data_types_by_id($id) {
+		$q = "DELETE FROM	element_data_types
+				WHERE		id_element_data_types = " . $this->escape($id);
+		return $this->run_query($q, false);
+	}
+	
 	public function del_element_types_has_element_data_types($fk_id_element_types, $fk_id_element_data_types) {
 		$q = "DELETE FROM	element_types_has_element_data_types
 					WHERE	fk_id_element_types = " . $this->escape($fk_id_element_types) . "

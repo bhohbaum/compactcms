@@ -128,14 +128,11 @@ class TemplateEditor extends CMVCController {
 				$this->db->delete_element_type_by_id($this->param1);
 			}
 			if ($this->param0 == "templatedata") {
-				$etype = $this->db->get_element_types_by_id($this->param1, true);
-				unlink("./templates/cms/" . $etype->template);
-				$this->db->delete_element_type_by_id($this->param1);
+				$this->db->delete_element_data_types_by_id($this->param1);
 			}
 		} catch (Exception $e) {
 			throw $e;
 		}
-		
 	}
 	
 	
