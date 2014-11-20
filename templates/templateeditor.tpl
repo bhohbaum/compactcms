@@ -267,14 +267,14 @@
 		<div style="float: none; overflow: scroll;">
 			<div id="notusedtpldata" style="float: left; border-style: solid; border-color: black; border-width: 1px; width: 40%; height: 70%; overflow: scroll;">
 				<?php foreach ($this->get_value("unused") as $nu) { ?>
-					<div onclick="add_data_elem(<?= $nu->id_element_data_types ?>)" style="padding-left: 13px; padding-right: 13px; height: 50px; border-style: solid; border-color: black; border-width: 1px;">
+					<div onclick="add_data_elem(<?= $nu->id_element_data_types ?>)" style="padding-left: 13px; padding-right: 13px; height: 50px; border-style: solid; border-color: black; border-width: 1px; cursor: pointer;">
 						<p>
 							<button onclick="delete_template_data(<?= $nu->id_element_data_types ?>); return false;">X</button>
 							<?= $nu->name ?>
 						</p>
 					</div>
 				<?php } ?>
-				<div style="width: 100%; background-color: #FFFFEC; border-style: solid; border-color: black; border-width: 1px; cursor: pointer; height: 50px" onmouseover="add_template_data_s1();" onmouseout="add_template_data_s2()">
+				<div style="width: 100%; background-color: #FFFFEC; border-style: solid; border-color: black; border-width: 1px; cursor: pointer; height: 50px; cursor: pointer;" onmouseover="add_template_data_s1();" onmouseout="add_template_data_s2()">
 					<p id="newtpldatabtn">
 						New...
 					</p>
@@ -285,7 +285,7 @@
 			</div>
 			<div id="usedtpldata" style="float: right; border-style: solid; border-color: black; border-width: 1px; width: 40%; height: 70%; overflow: scroll;">
 				<?php foreach ($this->get_value("used") as $u) { ?>
-					<div onclick="remove_data_elem(<?= $u->id_element_data_types ?>)" style="padding-left: 13px; padding-right: 13px; height: 50px; border-style: solid; border-color: black; border-width: 1px;">
+					<div onclick="remove_data_elem(<?= $u->id_element_data_types ?>)" style="padding-left: 13px; padding-right: 13px; height: 50px; border-style: solid; border-color: black; border-width: 1px; cursor: pointer;">
 						<p>
 							<?= $u->name ?>
 						</p>
