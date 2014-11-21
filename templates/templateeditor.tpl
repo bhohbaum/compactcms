@@ -120,7 +120,7 @@
 			$(".tplbtn").each(function() {
 				$(this).css("background-color", "#FFFFEC");
 			});
-			$("#tplbtn_" + id).css("background-color", "#FFEFDC");
+			$("#tplbtn_" + id).css("background-color", "#EFDFCC");
 			load_template(id);
 			load_tpldata(id);
 		}
@@ -265,6 +265,16 @@
 <?php } elseif ($this->is_active("tpldata")) { ?>
 	<div style="width: 700px; float: left; height: 100%; border-style: solid; border-color: black; border-width: 1px">
 		<div style="float: none; overflow: scroll;">
+			<div style="float: left; background-color: #FEDDCC; border-style: solid; border-color: black; border-width: 1px; width: 40%; height: 20px; padding-top: 13px;">
+				<center>
+					Not used data elements
+				</center>
+			</div>
+			<div style="float: right; background-color: #FEDDCC; border-style: solid; border-color: black; border-width: 1px; width: 40%; height: 20px; padding-top: 13px;">
+				<center>
+					Used data elements
+				</center>
+			</div>
 			<div id="notusedtpldata" style="float: left; border-style: solid; border-color: black; border-width: 1px; width: 40%; height: 70%; overflow: scroll;">
 				<?php foreach ($this->get_value("unused") as $nu) { ?>
 					<div onclick="add_data_elem(<?= $nu->id_element_data_types ?>)" style="padding-left: 13px; padding-right: 13px; height: 50px; border-style: solid; border-color: black; border-width: 1px; cursor: pointer;">
