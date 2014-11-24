@@ -70,7 +70,7 @@ class TemplateEditor extends CMVCController {
 		try {
 			if ($this->param0 == "template") {
 				$etype = $this->db->get_element_types_by_id($this->param1, true);
-				file_put_contents("./templates/cms/" . $etype->template, UTF8::encode($this->data));
+				file_put_contents("./templates/cms/" . $etype->template, UTF8::encode(base64_decode($this->data)));
 				$this->binary_response($this->data);
 				return;
 			}

@@ -132,7 +132,7 @@
 		function save_template(id) {
 			new $ajax().ok(function(result) {
 				console.log(result);
-			}).data("&data=" + escape($("#tplinput").val())).post("/backend/templateeditor/template/" + id);
+			}).data("&data=" + encodeURIComponent(Base64.encode($("#tplinput").val()))).post("/backend/templateeditor/template/" + id);
 		}
 
 		function add_template_s1() {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>About</title>
+		<title><?= $this->data("title") ?></title>
 		<meta charset="utf-8">
 		<link rel="icon" href="img/favicon.ico" type="image/x-icon">
 		<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="../assets/css/style.css" type="text/css" media="screen">
 		<link rel="stylesheet" href="../assets/css/touchTouch.css" type="text/css" media="screen">
 		<link rel="stylesheet" href="../assets/css/kwicks-slider.css" type="text/css" media="screen">
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Open Sans:400,300' rel='stylesheet' type='text/css'>
 		
 		<script type="text/javascript" src="../assets/js/jquery.js"></script>
 		<script type="text/javascript" src="../assets/js/superfish.js"></script>
@@ -23,7 +23,7 @@
 		<script type="text/javascript" src="../assets/js/jquery.easing.1.3.js"></script>
 		<script type="text/javascript" src="../assets/js/jquery.cookie.js"></script>
 		<script type="text/javascript" src="../assets/js/touchTouch.jquery.js"></script>
-		
+		 
 		<script type="text/javascript">
 			if($(window).width()>1024){document.write("<"+"script src='../assets/js/jquery.preloader.js'></"+"script>");}	
 		</script>
@@ -50,8 +50,8 @@
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 			<link rel="stylesheet" href="css/docs.css" type="text/css" media="screen">
 			<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen">
-			<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
-			<link href='http://fonts.googleapis.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+			<link href='http://fonts.googleapis.com/css?family=Open Sans:300' rel='stylesheet' type='text/css'>
+			<link href='http://fonts.googleapis.com/css?family=Open Sans:400' rel='stylesheet' type='text/css'>
 		<![endif]-->
 	</head>
 	
