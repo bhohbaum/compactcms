@@ -26,6 +26,18 @@ class BackendDBA extends CMSDBA {
 		return $this->run_query($q, true, $obj);
 	}
 
+	public function get_all_elements($obj = false) {
+		$q = "SELECT	*
+				FROM	elements
+			ORDER BY	position, ordinal ASC";
+		return $this->run_query($q, true, $obj);
+	}
+
+	public function set_elements_autoincrement($pos, $obj = false) {
+		$q = "ALTER TABLE elements AUTO_INCREMENT=" . $this->escape($pos);
+		return $this->run_query($q, false, $obj);
+	}
+
 	public function get_pages($obj = false) {
 		$q = "SELECT	elements.*
 				FROM	elements

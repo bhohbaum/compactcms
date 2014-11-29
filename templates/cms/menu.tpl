@@ -7,7 +7,7 @@
 						<h1 class="brand brand_">
 							<a href="?id=23"><img alt="" src="/assets/img/logo_dark.png"> </a>
 						</h1>
-						<a class="btn btn-navbar btn-navbar_" data-toggle="collapse" data-target=".nav-collapse_">Menu <span class="icon-bar"></span>
+						<a class="btn btn-navbar btn-navbar_" data-toggle="collapse" data-target=".nav-collapse_">Menu<span class="icon-bar"></span>
 						</a>
 						<div class="nav-collapse nav-collapse_  collapse">
 							<ul class="nav sf-menu">

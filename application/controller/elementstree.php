@@ -136,7 +136,11 @@ class ElementsTree extends CMVCController {
 			$this->db->add_element_data($val["fk_id_element_data_types"], $tgt_elem["id_elements"], $val["fk_id_languages"], $val["data"]);
 		}
 	}
-
+	
+	private function reindex() {
+		$elements = $this->db->get_all_elements();
+		
+	}
 
 }
 
