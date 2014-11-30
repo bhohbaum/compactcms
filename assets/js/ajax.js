@@ -1,3 +1,9 @@
+// example:
+// <input type='hidden' id='tags' class="ajax form-control full-width"
+//     data-placeholder="Titel eintragen"
+//     data-path="ajax/survey/bonus/<?= $this->get_value("surveyId") ?>#name"
+//     data-content="html(JSON.parse(result)[0].name); element.attr('placeholder', JSON.parse(result)[0].name); select_reinit();" />
+
 var $_ajax = [];
 var $ajax = function() {
 	
