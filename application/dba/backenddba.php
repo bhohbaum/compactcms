@@ -33,9 +33,9 @@ class BackendDBA extends CMSDBA {
 		return $this->run_query($q, true, $obj);
 	}
 
-	public function set_elements_autoincrement($pos, $obj = false) {
+	public function set_elements_autoincrement($pos) {
 		$q = "ALTER TABLE elements AUTO_INCREMENT=" . $this->escape($pos);
-		return $this->run_query($q, false, $obj);
+		return $this->run_query($q, false);
 	}
 
 	public function get_pages($obj = false) {
