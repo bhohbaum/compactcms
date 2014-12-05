@@ -29,6 +29,7 @@ class ElemDataEditor extends CMVCController {
 		$this->edtypes = $this->db->get_element_data_types_by_element_id($this->id);
 		foreach ($this->edtypes as $idx => $edtype) {
 			$this->edata[$idx] = $this->db->get_element_data_by_element_id_and_type_name($this->id, $edtype["name"]);
+			$this->edata[$idx]["data"] = str_replace("<br />", "\n", html_entity_decode($this->edata[$idx]["data"]));
 		}
 	}
 
@@ -40,13 +41,13 @@ class ElemDataEditor extends CMVCController {
 		$this->view->set_value("edtypes", $this->edtypes);
 		$this->view->set_value("edata", $this->edata);
 		$template = file_get_contents("./templates/cms/" . $this->db->get_element_types_by_id($this->element["fk_id_element_types"], true)->template);
-		$this->view->set_value("template", nl2br(str_replace("	", "&nbsp;&nbsp;&nbsp;&nbsp;", str_replace(" ", "&nbsp;", htmlentities($template)))));
+		$this->view->set_value("template", nl2br(str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;", str_replace(" ", "&nbsp;", htmlentities($template)))));
 	}
 
 	protected function run_page_logic_post() {
 		$this->run_page_logic_delete();
 		foreach ($this->edtypes as $key => $val) {
-			$this->db->add_element_data($val["id_element_data_types"], $this->id, "null", UTF8::encode($this->request($val["name"])));
+			$this->db->add_element_data($val["id_element_data_types"], $this->id, "null", UTF8::encode(str_replace("\r", "", str_replace("\n", "", nl2br(htmlentities($this->request($val["name"])))))));
 		}
 		foreach ($this->edtypes as $idx => $edtype) {
 			$this->edata[$idx] = $this->db->get_element_data_by_element_id_and_type_name($this->id, $edtype["name"]);
