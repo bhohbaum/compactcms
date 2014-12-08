@@ -18,6 +18,7 @@ class TemplateEditor extends CMVCController {
 	private $element_data;
 
 	protected function dba() {
+		DLOG(__METHOD__);
 		return "BackendDBA";
 	}
 
@@ -121,6 +122,7 @@ class TemplateEditor extends CMVCController {
 	}
 	
 	protected function run_page_logic_delete() {
+		DLOG(__METHOD__);
 		try {
 			if ($this->param0 == "template") {
 				$etype = $this->db->get_element_types_by_id($this->param1, true);

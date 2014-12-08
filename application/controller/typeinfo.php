@@ -14,6 +14,7 @@ class TypeInfo extends CMVCController {
 	private $id;
 
 	protected function dba() {
+		DLOG(__METHOD__);
 		return "BackendDBA";
 	}
 

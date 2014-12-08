@@ -20,6 +20,7 @@ class AddElement extends CMVCController {
 	private $description;
 
 	protected function dba() {
+		DLOG(__METHOD__);
 		return "BackendDBA";
 	}
 

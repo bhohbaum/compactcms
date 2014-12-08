@@ -18,6 +18,7 @@ class RenderController extends CMVCController {
 	private $element_data;
 
 	protected function dba() {
+		DLOG(__METHOD__);
 		return "CMSDBA";
 	}
 

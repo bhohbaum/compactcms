@@ -13,6 +13,7 @@ LIBCOMPACTMVC_ENTRY;
 class Logout extends CMVCController {
 
 	protected function dba() {
+		DLOG(__METHOD__);
 		return "DBA";
 	}
 

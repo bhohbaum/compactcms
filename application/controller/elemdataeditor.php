@@ -18,6 +18,7 @@ class ElemDataEditor extends CMVCController {
 	private $edata;
 
 	protected function dba() {
+		DLOG(__METHOD__);
 		return "BackendDBA";
 	}
 
@@ -34,6 +35,7 @@ class ElemDataEditor extends CMVCController {
 	}
 
 	protected function run_page_logic_get() {
+		DLOG(__METHOD__);
 		$this->view->add_template("header.tpl");
 		$this->view->add_template("elemdataeditor.tpl");
 		$this->view->add_template("footer.tpl");
@@ -45,6 +47,7 @@ class ElemDataEditor extends CMVCController {
 	}
 
 	protected function run_page_logic_post() {
+		DLOG(__METHOD__);
 		$this->run_page_logic_delete();
 		foreach ($this->edtypes as $key => $val) {
 			$this->db->add_element_data($val["id_element_data_types"], $this->id, "null", UTF8::encode(str_replace("\r", "", str_replace("\n", "", nl2br(htmlentities($this->request($val["name"])))))));
@@ -57,6 +60,7 @@ class ElemDataEditor extends CMVCController {
 	}
 
 	protected function run_page_logic_delete() {
+		DLOG(__METHOD__);
 		$this->db->delete_element_data_by_element_id($this->id);
 	}
 

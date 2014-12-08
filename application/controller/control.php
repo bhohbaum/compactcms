@@ -18,6 +18,7 @@ class Control extends CMVCController {
 	private $param2;
 
 	protected function dba() {
+		DLOG(__METHOD__);
 		return "DBA";
 	}
 

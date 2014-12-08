@@ -14,6 +14,7 @@ class CMSEditor extends CMVCController {
 	private $id;
 
 	protected function dba() {
+		DLOG(__METHOD__);
 		return "BackendDBA";
 	}
 
@@ -30,6 +31,7 @@ class CMSEditor extends CMVCController {
 	}
 
 	protected function run_page_logic_get() {
+		DLOG(__METHOD__);
 		$etree = $this->db->get_element_by_id($this->id);
 		$this->add_sub_elements($etree);
 		$this->view->add_template("cmseditor.tpl");
@@ -37,6 +39,7 @@ class CMSEditor extends CMVCController {
 	}
 
 	private function add_sub_elements(&$parent) {
+		DLOG(__METHOD__);
 		if ($parent != null) {
 			$parent["fk_id_element_types"] = $this->db->get_element_types_by_id($parent["fk_id_element_types"]);
 		}

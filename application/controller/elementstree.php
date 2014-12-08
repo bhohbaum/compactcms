@@ -26,6 +26,7 @@ class ElementsTree extends CMVCController {
 	private $description;
 
 	protected function dba() {
+		DLOG(__METHOD__);
 		return "BackendDBA";
 	}
 
@@ -96,6 +97,7 @@ class ElementsTree extends CMVCController {
 	}
 
 	protected function run_page_logic_delete() {
+		DLOG(__METHOD__);
 		$viewstate = $this->redis->get("viewstate_" . $_COOKIE["PHPSESSID"]);
 		$this->redis->flushAll();
 		$this->redis->set("viewstate_" . $_COOKIE["PHPSESSID"], $viewstate);
@@ -105,6 +107,7 @@ class ElementsTree extends CMVCController {
 	}
 
 	private function add_sub_elements(&$parent) {
+		DLOG(__METHOD__);
 		if ($parent != null) {
 			$parent["fk_id_element_types"] = $this->db->get_element_types_by_id($parent["fk_id_element_types"]);
 		}
@@ -115,6 +118,7 @@ class ElementsTree extends CMVCController {
 	}
 
 	private function copy_subtree(&$src_parent, &$tgt_parent) {
+		DLOG(__METHOD__);
 		if ($src_parent == null) {
 			return;
 		}
@@ -131,6 +135,7 @@ class ElementsTree extends CMVCController {
 	}
 
 	private function copy_element_data($src_elem, $tgt_elem) {
+		DLOG(__METHOD__);
 		$data = $this->db->get_element_data_by_element_id($src_elem["id_elements"]);
 		foreach ($data as $key => $val) {
 			$this->db->add_element_data($val["fk_id_element_data_types"], $tgt_elem["id_elements"], $val["fk_id_languages"], $val["data"]);
@@ -138,8 +143,8 @@ class ElementsTree extends CMVCController {
 	}
 	
 	private function reindex() {
+		DLOG(__METHOD__);
 		$elements = $this->db->get_all_elements();
-		
 	}
 
 }

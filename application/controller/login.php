@@ -15,6 +15,7 @@ class Login extends CMVCController {
 	private $pass;
 
 	protected function dba() {
+		DLOG(__METHOD__);
 		return "DBA";
 	}
 
