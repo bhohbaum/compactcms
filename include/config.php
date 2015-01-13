@@ -57,6 +57,7 @@ define('SMTP_SENDER', 'test@bothos-mbp');
 define('SMTP_SENDER_NAME', 'LibCompactMVC');
 // Send method: MAIL (mail() function) or SMTP
 define('MAIL_TRANS_TYPE', 'SMTP');
+define('MAIL_RECEIVER', 'b.hohbaum@googlemail.com');
 define('MAIL_DEBUG_ADDR', 'b.hohbaum@googlemail.com');
 
 // allowed users (login)

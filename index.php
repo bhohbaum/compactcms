@@ -25,6 +25,7 @@ class Main {
 		$this->ad->set_handler("login",				"Login");
 		$this->ad->set_handler("logout", 			"Logout");
 		$this->ad->set_handler("rendercontroller", 	"RenderController");
+		$this->ad->set_handler("sendmail", 			"SendMail");
 		$this->ad->set_default("rendercontroller");
 		$this->ad->set_control("control");
 		$this->ad->run();
